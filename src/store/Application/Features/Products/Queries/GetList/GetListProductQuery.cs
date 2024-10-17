@@ -42,11 +42,12 @@ public class GetListProductQuery : IRequest<GetListResponse<GetListProductListIt
 
         public async Task<GetListResponse<GetListProductListItemDto>> Handle(GetListProductQuery request, CancellationToken cancellationToken)
         {
-            IPaginate<Product> prodocuts = await _productRepository.GetListAsync(include: query => query.Include(p => p.Category),
-            index: request.PageRequest.PageIndex,
-            size: request.PageRequest.PageSize,
-            enableTracking: false,
-            cancellationToken: cancellationToken);
+            IPaginate<Product> prodocuts =
+                await _productRepository.GetListAsync(include: query => query.Include(p => p.Category).Include(p => p.ProductImages),
+                index: request.PageRequest.PageIndex,
+                size: request.PageRequest.PageSize,
+                enableTracking: false,
+                cancellationToken: cancellationToken);
 
             GetListResponse<GetListProductListItemDto> response = _mapper.Map<GetListResponse<GetListProductListItemDto>>(prodocuts);
 

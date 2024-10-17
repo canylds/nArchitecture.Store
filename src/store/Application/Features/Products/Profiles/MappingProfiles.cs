@@ -29,6 +29,7 @@ public class MappingProfiles : Profile
             .ForMember(dest => dest.ProductImages, opt => opt.MapFrom(src => src.ProductImages))
             .ReverseMap();
 
+        CreateMap<ProductImage, GlplidProductImageDto>().ReverseMap();
         CreateMap<Product, GetListProductListItemDto>()
             .ForMember(dest => dest.CategoryName, opt => opt.MapFrom(src => src.Category.Name))
             .ForMember(dest => dest.ProductImages, opt => opt.MapFrom(src => src.ProductImages))
