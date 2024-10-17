@@ -10,6 +10,7 @@ public class Product : Entity<int>
     public double UnitPrice { get; set; }
 
     public virtual Category Category { get; set; } = default!;
+    public virtual ICollection<ProductImage> ProductImages { get; set; } = default!;
 
     public Product()
     {
