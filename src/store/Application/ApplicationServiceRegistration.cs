@@ -2,6 +2,7 @@
 using Application.Services.AuthenticatorService;
 using Application.Services.AuthService;
 using Application.Services.OperationClaimService;
+using Application.Services.ProductService;
 using Application.Services.UserOperationClaimService;
 using Application.Services.UserService;
 using Core.Application.Pipelines.Authorization;
@@ -55,6 +56,7 @@ public static class ApplicationServiceRegistration
         services.AddScoped<IOperationClaimService, OperationClaimManager>();
         services.AddScoped<IUserOperationClaimService, UserOperationClaimManager>();
         services.AddScoped<IUserService, UserManager>();
+        services.AddScoped<IProductService, ProductManager>();
 
         services.AddSecurityServices<int, int, int>(tokenOptions);
 
