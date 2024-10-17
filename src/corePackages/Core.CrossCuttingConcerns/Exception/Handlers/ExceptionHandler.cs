@@ -4,8 +4,7 @@ namespace Core.CrossCuttingConcerns.Exception.Handlers;
 
 public abstract class ExceptionHandler
 {
-    public Task HandleExceptionAsync(System.Exception exception) =>
-    exception switch
+    public Task HandleExceptionAsync(System.Exception exception) => exception switch
     {
         AuthorizationException authorizationException => HandleException(authorizationException),
         BusinessException businessException => HandleException(businessException),

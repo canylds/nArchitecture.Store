@@ -5,7 +5,7 @@ using Microsoft.Extensions.Logging;
 namespace Core.Application.Pipelines.Performance;
 
 public class PerformanceBehavior<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse>
-where TRequest : IRequest<TResponse>, IIntervalRequest
+    where TRequest : IRequest<TResponse>, IIntervalRequest
 {
     private readonly ILogger<PerformanceBehavior<TRequest, TResponse>> _logger;
     private readonly Stopwatch _stopwatch;
@@ -17,8 +17,8 @@ where TRequest : IRequest<TResponse>, IIntervalRequest
     }
 
     public async Task<TResponse> Handle(TRequest request,
-    RequestHandlerDelegate<TResponse> next,
-    CancellationToken cancellationToken)
+        RequestHandlerDelegate<TResponse> next,
+        CancellationToken cancellationToken)
     {
         string requestName = request.GetType().Name;
 

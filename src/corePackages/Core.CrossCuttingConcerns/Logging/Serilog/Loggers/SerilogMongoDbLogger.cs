@@ -8,7 +8,7 @@ public class SerilogMongoDbLogger : SerilogLoggerServiceBase
     public SerilogMongoDbLogger(MongoDbConfiguration mongoDbConfiguration) : base(logger: null!)
     {
         Logger = new LoggerConfiguration().WriteTo
-        .MongoDB(mongoDbConfiguration.ConnectionString, collectionName: mongoDbConfiguration.Collection)
-        .CreateLogger();
+            .MongoDB(mongoDbConfiguration.ConnectionString, collectionName: mongoDbConfiguration.Collection)
+            .CreateLogger();
     }
 }

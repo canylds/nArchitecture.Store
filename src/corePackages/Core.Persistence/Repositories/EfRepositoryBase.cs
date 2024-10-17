@@ -9,8 +9,9 @@ using Microsoft.EntityFrameworkCore.Query;
 
 namespace Core.Persistence.Repositories;
 
-public class EfRepositoryBase<TEntity, TEntityId, TContext> : IAsyncRepository<TEntity, TEntityId>, IRepository<TEntity, TEntityId>
-where TEntity : Entity<TEntityId> where TContext : DbContext
+public class EfRepositoryBase<TEntity, TEntityId, TContext> : IAsyncRepository<TEntity, TEntityId>,
+    IRepository<TEntity, TEntityId>
+    where TEntity : Entity<TEntityId> where TContext : DbContext
 {
     protected readonly TContext Context;
 
@@ -25,9 +26,9 @@ where TEntity : Entity<TEntityId> where TContext : DbContext
     }
 
     public async Task<bool> AnyAsync(Expression<Func<TEntity, bool>>? predicate = null,
-    Func<IQueryable<TEntity>, IIncludableQueryable<TEntity, object>>? include = null,
-    bool withDeleted = false,
-    CancellationToken cancellationToken = default)
+        Func<IQueryable<TEntity>, IIncludableQueryable<TEntity, object>>? include = null,
+        bool withDeleted = false,
+        CancellationToken cancellationToken = default)
     {
         IQueryable<TEntity> queryable = Query();
         if (withDeleted)
@@ -46,7 +47,7 @@ where TEntity : Entity<TEntityId> where TContext : DbContext
     }
 
     public async Task<ICollection<TEntity>> AddRangeAsync(ICollection<TEntity> entities,
-    CancellationToken cancellationToken = default)
+        CancellationToken cancellationToken = default)
     {
         foreach (TEntity entity in entities)
             EditEntityPropertiesToAdd(entity);
@@ -64,7 +65,7 @@ where TEntity : Entity<TEntityId> where TContext : DbContext
     }
 
     public async Task<ICollection<TEntity>> UpdateRangeAsync(ICollection<TEntity> entities,
-    CancellationToken cancellationToken = default)
+        CancellationToken cancellationToken = default)
     {
         foreach (TEntity entity in entities)
             EditEntityPropertiesToUpdate(entity);
@@ -73,7 +74,8 @@ where TEntity : Entity<TEntityId> where TContext : DbContext
         return entities;
     }
 
-    public async Task<TEntity> DeleteAsync(TEntity entity, bool permanent = false, CancellationToken cancellationToken = default)
+    public async Task<TEntity> DeleteAsync(TEntity entity, bool permanent = false,
+        CancellationToken cancellationToken = default)
     {
         await SetEntityAsDeleted(entity, permanent, isAsync: true, cancellationToken);
         await Context.SaveChangesAsync(cancellationToken);
@@ -81,8 +83,8 @@ where TEntity : Entity<TEntityId> where TContext : DbContext
     }
 
     public async Task<ICollection<TEntity>> DeleteRangeAsync(ICollection<TEntity> entities,
-    bool permanent = false,
-    CancellationToken cancellationToken = default)
+        bool permanent = false,
+        CancellationToken cancellationToken = default)
     {
         await SetEntityAsDeleted(entities, permanent, isAsync: true, cancellationToken);
         await Context.SaveChangesAsync(cancellationToken);
@@ -90,10 +92,10 @@ where TEntity : Entity<TEntityId> where TContext : DbContext
     }
 
     public async Task<TEntity?> GetAsync(Expression<Func<TEntity, bool>> predicate,
-    Func<IQueryable<TEntity>, IIncludableQueryable<TEntity, object>>? include = null,
-    bool withDeleted = false,
-    bool enableTracking = true,
-    CancellationToken cancellationToken = default)
+        Func<IQueryable<TEntity>, IIncludableQueryable<TEntity, object>>? include = null,
+        bool withDeleted = false,
+        bool enableTracking = true,
+        CancellationToken cancellationToken = default)
     {
         IQueryable<TEntity> queryable = Query();
         if (!enableTracking)
@@ -106,13 +108,13 @@ where TEntity : Entity<TEntityId> where TContext : DbContext
     }
 
     public async Task<IPaginate<TEntity>> GetListAsync(Expression<Func<TEntity, bool>>? predicate = null,
-    Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>>? orderBy = null,
-    Func<IQueryable<TEntity>, IIncludableQueryable<TEntity, object>>? include = null,
-    int index = 0,
-    int size = 10,
-    bool withDeleted = false,
-    bool enableTracking = true,
-    CancellationToken cancellationToken = default)
+        Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>>? orderBy = null,
+        Func<IQueryable<TEntity>, IIncludableQueryable<TEntity, object>>? include = null,
+        int index = 0,
+        int size = 10,
+        bool withDeleted = false,
+        bool enableTracking = true,
+        CancellationToken cancellationToken = default)
     {
         IQueryable<TEntity> queryable = Query();
         if (!enableTracking)
@@ -129,13 +131,13 @@ where TEntity : Entity<TEntityId> where TContext : DbContext
     }
 
     public async Task<IPaginate<TEntity>> GetListByDynamicAsync(DynamicQuery dynamic,
-    Expression<Func<TEntity, bool>>? predicate = null,
-    Func<IQueryable<TEntity>, IIncludableQueryable<TEntity, object>>? include = null,
-    int index = 0,
-    int size = 10,
-    bool withDeleted = false,
-    bool enableTracking = true,
-    CancellationToken cancellationToken = default)
+        Expression<Func<TEntity, bool>>? predicate = null,
+        Func<IQueryable<TEntity>, IIncludableQueryable<TEntity, object>>? include = null,
+        int index = 0,
+        int size = 10,
+        bool withDeleted = false,
+        bool enableTracking = true,
+        CancellationToken cancellationToken = default)
     {
         IQueryable<TEntity> queryable = Query().ToDynamic(dynamic);
         if (!enableTracking)
@@ -150,8 +152,8 @@ where TEntity : Entity<TEntityId> where TContext : DbContext
     }
 
     public bool Any(Expression<Func<TEntity, bool>>? predicate = null,
-    Func<IQueryable<TEntity>, IIncludableQueryable<TEntity, object>>? include = null,
-    bool withDeleted = false)
+        Func<IQueryable<TEntity>, IIncludableQueryable<TEntity, object>>? include = null,
+        bool withDeleted = false)
     {
         IQueryable<TEntity> queryable = Query();
         if (withDeleted)
@@ -210,9 +212,9 @@ where TEntity : Entity<TEntityId> where TContext : DbContext
     }
 
     public TEntity? Get(Expression<Func<TEntity, bool>> predicate,
-    Func<IQueryable<TEntity>, IIncludableQueryable<TEntity, object>>? include = null,
-    bool withDeleted = false,
-    bool enableTracking = true)
+        Func<IQueryable<TEntity>, IIncludableQueryable<TEntity, object>>? include = null,
+        bool withDeleted = false,
+        bool enableTracking = true)
     {
         IQueryable<TEntity> queryable = Query();
         if (!enableTracking)
@@ -225,12 +227,12 @@ where TEntity : Entity<TEntityId> where TContext : DbContext
     }
 
     public IPaginate<TEntity> GetList(Expression<Func<TEntity, bool>>? predicate = null,
-    Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>>? orderBy = null,
-    Func<IQueryable<TEntity>, IIncludableQueryable<TEntity, object>>? include = null,
-    int index = 0,
-    int size = 10,
-    bool withDeleted = false,
-    bool enableTracking = true)
+        Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>>? orderBy = null,
+        Func<IQueryable<TEntity>, IIncludableQueryable<TEntity, object>>? include = null,
+        int index = 0,
+        int size = 10,
+        bool withDeleted = false,
+        bool enableTracking = true)
     {
         IQueryable<TEntity> queryable = Query();
         if (!enableTracking)
@@ -247,12 +249,12 @@ where TEntity : Entity<TEntityId> where TContext : DbContext
     }
 
     public IPaginate<TEntity> GetListByDynamic(DynamicQuery dynamic,
-    Expression<Func<TEntity, bool>>? predicate = null,
-    Func<IQueryable<TEntity>, IIncludableQueryable<TEntity, object>>? include = null,
-    int index = 0,
-    int size = 10,
-    bool withDeleted = false,
-    bool enableTracking = true)
+        Expression<Func<TEntity, bool>>? predicate = null,
+        Func<IQueryable<TEntity>, IIncludableQueryable<TEntity, object>>? include = null,
+        int index = 0,
+        int size = 10,
+        bool withDeleted = false,
+        bool enableTracking = true)
     {
         IQueryable<TEntity> queryable = Query().ToDynamic(dynamic);
         if (!enableTracking)
@@ -292,9 +294,9 @@ where TEntity : Entity<TEntityId> where TContext : DbContext
     }
 
     protected async Task SetEntityAsDeleted(TEntity entity,
-    bool permanent,
-    bool isAsync = true,
-    CancellationToken cancellationToken = default)
+        bool permanent,
+        bool isAsync = true,
+        CancellationToken cancellationToken = default)
     {
         if (!permanent)
         {
@@ -309,9 +311,9 @@ where TEntity : Entity<TEntityId> where TContext : DbContext
     }
 
     protected async Task SetEntityAsDeleted(IEnumerable<TEntity> entities,
-    bool permanent,
-    bool isAsync = true,
-    CancellationToken cancellationToken = default)
+        bool permanent,
+        bool isAsync = true,
+        CancellationToken cancellationToken = default)
     {
         foreach (TEntity entity in entities)
             await SetEntityAsDeleted(entity, permanent, isAsync, cancellationToken);
@@ -322,9 +324,13 @@ where TEntity : Entity<TEntityId> where TContext : DbContext
         Type queryProviderType = query.Provider.GetType();
 
         MethodInfo createQueryMethod = queryProviderType.GetMethods()
-        .First(m => m is { Name: nameof(query.Provider.CreateQuery), IsGenericMethod: true })?
-        .MakeGenericMethod(navigationPropertyType)
-        ?? throw new InvalidOperationException("CreateQuery<TElement> method is not found in IQueryProvider.");
+            .First(m => m is
+            {
+                Name: nameof(query.Provider.CreateQuery),
+                IsGenericMethod: true
+            })?
+            .MakeGenericMethod(navigationPropertyType)
+            ?? throw new InvalidOperationException("CreateQuery<TElement> method is not found in IQueryProvider.");
 
         var queryProviderQuery = (IQueryable<object>)createQueryMethod.Invoke(query.Provider, parameters: [query.Expression])!;
 
@@ -351,9 +357,9 @@ where TEntity : Entity<TEntityId> where TContext : DbContext
     }
 
     private async Task setEntityAsSoftDeleted(IEntityTimestamps entity,
-    bool isAsync = true,
-    CancellationToken cancellationToken = default,
-    bool isRoot = true)
+        bool isAsync = true,
+        CancellationToken cancellationToken = default,
+        bool isRoot = true)
     {
         if (IsSoftDeleted(entity))
             return;

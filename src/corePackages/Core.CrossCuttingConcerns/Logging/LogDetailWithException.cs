@@ -10,10 +10,10 @@ public class LogDetailWithException : LogDetail
     }
 
     public LogDetailWithException(string fullName,
-    string methodName,
-    string user,
-    List<LogParameter> parameters,
-    string exceptionMessage) : base(fullName, methodName, user, parameters)
+        string methodName,
+        string user,
+        List<LogParameter> parameters,
+        string exceptionMessage) : base(fullName, methodName, user, parameters)
     {
         ExceptionMessage = exceptionMessage;
     }

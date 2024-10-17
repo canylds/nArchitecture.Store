@@ -5,10 +5,10 @@ namespace Core.Persistence.Paging;
 public static class IQueryablePaginateExtensions
 {
     public static async Task<IPaginate<T>> ToPaginateAsync<T>(this IQueryable<T> source,
-    int index,
-    int size,
-    int from = 0,
-    CancellationToken cancellationToken = default)
+        int index,
+        int size,
+        int from = 0,
+        CancellationToken cancellationToken = default)
     {
         if (from > index)
             throw new ArgumentException($"From: {from} > Index: {index}, must from <= Index");

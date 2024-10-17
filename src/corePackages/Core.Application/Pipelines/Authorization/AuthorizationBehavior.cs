@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Http;
 namespace Core.Application.Pipelines.Authorization;
 
 public class AuthorizationBehavior<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse>
-where TRequest : IRequest<TResponse>, ISecuredRequest
+    where TRequest : IRequest<TResponse>, ISecuredRequest
 {
     private readonly IHttpContextAccessor _httpContextAccessor;
 
@@ -17,8 +17,8 @@ where TRequest : IRequest<TResponse>, ISecuredRequest
     }
 
     public async Task<TResponse> Handle(TRequest request,
-    RequestHandlerDelegate<TResponse> next,
-    CancellationToken cancellationToken)
+        RequestHandlerDelegate<TResponse> next,
+        CancellationToken cancellationToken)
     {
         if (!_httpContextAccessor.HttpContext.User.Claims.Any())
             throw new AuthorizationException("You are not authenticated.");

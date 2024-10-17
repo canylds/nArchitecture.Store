@@ -18,8 +18,8 @@ public class SerilogMsSqlLogger : SerilogLoggerServiceBase
         ColumnOptions columnOptions = new();
 
         Logger seriLogConfig = new LoggerConfiguration().WriteTo
-        .MSSqlServer(msSqlConfiguration.ConnectionString, sinkOptions, columnOptions: columnOptions)
-        .CreateLogger();
+            .MSSqlServer(msSqlConfiguration.ConnectionString, sinkOptions, columnOptions: columnOptions)
+            .CreateLogger();
 
         Logger = seriLogConfig;
     }

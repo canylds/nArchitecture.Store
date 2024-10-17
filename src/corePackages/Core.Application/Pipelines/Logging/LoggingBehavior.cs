@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Http;
 namespace Core.Application.Pipelines.Logging;
 
 public class LoggingBehavior<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse>
-where TRequest : IRequest<TResponse>, ILoggableRequest
+    where TRequest : IRequest<TResponse>, ILoggableRequest
 {
     private readonly IHttpContextAccessor _httpContextAccessor;
     private readonly ILogger _logger;
@@ -18,8 +18,8 @@ where TRequest : IRequest<TResponse>, ILoggableRequest
     }
 
     public async Task<TResponse> Handle(TRequest request,
-    RequestHandlerDelegate<TResponse> next,
-    CancellationToken cancellationToken)
+        RequestHandlerDelegate<TResponse> next,
+        CancellationToken cancellationToken)
     {
         List<LogParameter> logParameters = [new LogParameter { Type = request.GetType().Name, Value = request }];
 
