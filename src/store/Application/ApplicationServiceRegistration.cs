@@ -1,6 +1,7 @@
 ﻿using System.Reflection;
 using Application.Services.AuthenticatorService;
 using Application.Services.AuthService;
+using Application.Services.CategoryService;
 using Application.Services.OperationClaimService;
 using Application.Services.ProductService;
 using Application.Services.UserOperationClaimService;
@@ -57,6 +58,7 @@ public static class ApplicationServiceRegistration
         services.AddScoped<IUserOperationClaimService, UserOperationClaimManager>();
         services.AddScoped<IUserService, UserManager>();
         services.AddScoped<IProductService, ProductManager>();
+        services.AddScoped<ICategoryService, CategoryManager>();
 
         services.AddSecurityServices<int, int, int>(tokenOptions);
 

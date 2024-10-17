@@ -1,5 +1,4 @@
-﻿using Application.Features.Products.Rules;
-using Domain.Entities;
+﻿using Domain.Entities;
 using Microsoft.EntityFrameworkCore.Query;
 using System.Linq.Expressions;
 

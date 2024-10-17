@@ -38,4 +38,12 @@ public class ProductBusinessRules : BaseBusinessRules
         if (doesExist)
             throw new BusinessException(ProductsMessages.AlreadyExists);
     }
+
+    public Task CategoryShouldExistWhenSelected(Category? category)
+    {
+        if (category == null)
+            throw new BusinessException(ProductsMessages.CategoryDontExists);
+
+        return Task.CompletedTask;
+    }
 }

@@ -58,6 +58,7 @@ public class CreateBulkProductImageCommand : IRequest<CreatedBulkProductImageRes
             CancellationToken cancellationToken)
         {
             Product? product = await _productService.GetAsync(predicate: p => p.Id == request.ProductId,
+                enableTracking: false,
                 cancellationToken: cancellationToken);
 
             await _productImageBusinessRules.ProductShouldExistWhenSelected(product);

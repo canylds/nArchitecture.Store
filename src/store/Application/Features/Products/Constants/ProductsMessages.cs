@@ -6,4 +6,5 @@ public static class ProductsMessages
 
     public const string NotExists = "Ürün bulunmuyor.";
     public const string AlreadyExists = "Ürün zaten mevcut.";
+    public const string CategoryDontExists = "Kategori bulunmuyor.";
 }

@@ -7,6 +7,7 @@ using AutoMapper;
 using Application.Features.Products.Rules;
 using Domain.Entities;
 using Core.Application.Pipelines.Logging;
+using Application.Services.CategoryService;
 
 namespace Application.Features.Products.Commands.Create;
 
@@ -38,18 +39,30 @@ public class CreateProductCommand : IRequest<CreatedProductResponse>, ISecuredRe
         private readonly IProductRepository _productRepository;
         private readonly IMapper _mapper;
         private readonly ProductBusinessRules _productBusinessRules;
+        private readonly ICategoryService _categoryService;
 
         public CreateProductCommandHandler(IProductRepository productRepository,
-        IMapper mapper,
-        ProductBusinessRules productBusinessRules)
+            IMapper mapper,
+            ProductBusinessRules productBusinessRules,
+            ICategoryService categoryService)
         {
             _productRepository = productRepository;
             _mapper = mapper;
             _productBusinessRules = productBusinessRules;
+            _categoryService = categoryService;
         }
 
         public async Task<CreatedProductResponse> Handle(CreateProductCommand request, CancellationToken cancellationToken)
         {
+            if (request.CategoryId != null)
+            {
+                Category? category = await _categoryService.GetAsync(predicate: c => c.Id == request.CategoryId,
+                    enableTracking: false,
+                    cancellationToken: cancellationToken);
+
+                await _productBusinessRules.CategoryShouldExistWhenSelected(category);
+            }
+
             await _productBusinessRules.ProductNameShouldNotExistWhenCreating(request.Name);
 
             Product product = _mapper.Map<Product>(request);

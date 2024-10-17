@@ -23,9 +23,16 @@ public class MappingProfiles : Profile
         CreateMap<Product, DeleteProductCommand>().ReverseMap();
         CreateMap<Product, DeletedProductResponse>().ReverseMap();
 
-        CreateMap<Product, GetByIdProductResponse>().ReverseMap();
+        CreateMap<ProductImage, GbiprProductImageDto>().ReverseMap();
+        CreateMap<Product, GetByIdProductResponse>()
+            .ForMember(dest => dest.CategoryName, opt => opt.MapFrom(src => src.Category.Name))
+            .ForMember(dest => dest.ProductImages, opt => opt.MapFrom(src => src.ProductImages))
+            .ReverseMap();
 
-        CreateMap<Product, GetListProductListItemDto>().ReverseMap();
+        CreateMap<Product, GetListProductListItemDto>()
+            .ForMember(dest => dest.CategoryName, opt => opt.MapFrom(src => src.Category.Name))
+            .ForMember(dest => dest.ProductImages, opt => opt.MapFrom(src => src.ProductImages))
+            .ReverseMap();
         CreateMap<IPaginate<Product>, GetListResponse<GetListProductListItemDto>>().ReverseMap();
     }
 }

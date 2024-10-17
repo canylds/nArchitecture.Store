@@ -1,5 +1,6 @@
 using Application.Features.Products.Constants;
 using Application.Features.Products.Rules;
+using Application.Services.CategoryService;
 using Application.Services.Repositories;
 using AutoMapper;
 using Core.Application.Pipelines.Authorization;
@@ -40,14 +41,17 @@ public class UpdateProductCommand : IRequest<UpdatedProductResponse>, ISecuredRe
         private readonly IProductRepository _productRepository;
         private readonly IMapper _mapper;
         private readonly ProductBusinessRules _productBusinessRules;
+        private readonly ICategoryService _categoryService;
 
         public UpdateProductCommandHandler(IProductRepository productRepository,
-        IMapper mapper,
-        ProductBusinessRules productBusinessRules)
+            IMapper mapper,
+            ProductBusinessRules productBusinessRules,
+            ICategoryService categoryService)
         {
             _productRepository = productRepository;
             _mapper = mapper;
             _productBusinessRules = productBusinessRules;
+            _categoryService = categoryService;
         }
 
         public async Task<UpdatedProductResponse> Handle(UpdateProductCommand request, CancellationToken cancellationToken)
@@ -56,6 +60,16 @@ public class UpdateProductCommand : IRequest<UpdatedProductResponse>, ISecuredRe
             cancellationToken: cancellationToken);
 
             await _productBusinessRules.ProductShouldExistWhenSelected(product);
+
+            if (request.CategoryId != null)
+            {
+                Category? category = await _categoryService.GetAsync(predicate: c => c.Id == request.CategoryId,
+                    enableTracking: false,
+                    cancellationToken: cancellationToken);
+
+                await _productBusinessRules.CategoryShouldExistWhenSelected(category);
+            }
+
             await _productBusinessRules.ProductNameShouldNotExistWhenUpdating(request.Id, request.Name);
 
             _mapper.Map(request, product);

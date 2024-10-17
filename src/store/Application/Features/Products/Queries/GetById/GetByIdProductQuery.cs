@@ -44,9 +44,9 @@ public class GetByIdProductQuery : IRequest<GetByIdProductResponse>, ISecuredReq
         public async Task<GetByIdProductResponse> Handle(GetByIdProductQuery request, CancellationToken cancellationToken)
         {
             Product? product = await _productRepository.GetAsync(predicate: p => p.Id.Equals(request.Id),
-            include: query => query.Include(p => p.Category),
-            enableTracking: false,
-            cancellationToken: cancellationToken);
+                include: query => query.Include(p => p.Category).Include(p => p.ProductImages),
+                enableTracking: false,
+                cancellationToken: cancellationToken);
 
             await _productBusinessRules.ProductShouldExistWhenSelected(product);
 
