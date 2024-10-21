@@ -30,40 +30,25 @@ public class ProductImageConfiguration : IEntityTypeConfiguration<ProductImage>
         {
             int id = 0;
 
-            yield return new ProductImage
-            {
-                Id = ++id,
-                ProductId = 1,
-                Url = "https://i.pinimg.com/originals/99/86/ab/9986ab7d3cee03f5949c9587938bb5c4.jpg"
-            };
+            yield return new ProductImage(id: ++id,
+                productId: 1,
+                url: "https://i.pinimg.com/originals/99/86/ab/9986ab7d3cee03f5949c9587938bb5c4.jpg");
 
-            yield return new ProductImage
-            {
-                Id = ++id,
-                ProductId = 1,
-                Url = "https://t4.ftcdn.net/jpg/07/46/18/01/360_F_746180145_5A7i83iHIGbKBXb2ArfZeN0BDLwOiW4g.jpg"
-            };
+            yield return new ProductImage(id: ++id,
+                productId: 1,
+                url: "https://t4.ftcdn.net/jpg/07/46/18/01/360_F_746180145_5A7i83iHIGbKBXb2ArfZeN0BDLwOiW4g.jpg");
 
-            yield return new ProductImage
-            {
-                Id = ++id,
-                ProductId = 2,
-                Url = "https://004406.cdn.akinoncloud.com/products/2020/06/11/96244/61c41c8f-a14d-4575-8ccb-52855c7994b5_size350x525_quality90_cropCenter.jpg"
-            };
+            yield return new ProductImage(id: ++id,
+                productId: 2,
+                url: "https://004406.cdn.akinoncloud.com/products/2020/06/11/96244/61c41c8f-a14d-4575-8ccb-52855c7994b5_size350x525_quality90_cropCenter.jpg");
 
-            yield return new ProductImage
-            {
-                Id = ++id,
-                ProductId = 2,
-                Url = "https://004406.a-cdn.akinoncloud.com/products/2024/02/29/595907/2230e9c3-4c05-4812-86a9-0fb428cc6ef1_size555x830_quality90_cropCenter.jpg"
-            };
+            yield return new ProductImage(id: ++id,
+                productId: 2,
+                url: "https://004406.a-cdn.akinoncloud.com/products/2024/02/29/595907/2230e9c3-4c05-4812-86a9-0fb428cc6ef1_size555x830_quality90_cropCenter.jpg");
 
-            yield return new ProductImage
-            {
-                Id = ++id,
-                ProductId = 2,
-                Url = "https://static.ticimax.cloud/cdn-cgi/image/width=-,quality=85/56971/uploads/urunresimleri/buyuk/koyu-mavi-uzun-kollu-ekoseli-cepli-gar--529e-.jpg"
-            };
+            yield return new ProductImage(id: ++id,
+                productId: 2,
+                url: "https://static.ticimax.cloud/cdn-cgi/image/width=-,quality=85/56971/uploads/urunresimleri/buyuk/koyu-mavi-uzun-kollu-ekoseli-cepli-gar--529e-.jpg");
         }
     }
 }

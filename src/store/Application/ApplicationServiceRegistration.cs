@@ -27,9 +27,9 @@ namespace Application;
 public static class ApplicationServiceRegistration
 {
     public static IServiceCollection AddApplicationServices(this IServiceCollection services,
-    MailSettings mailSettings,
-    MongoDbConfiguration mongoDbConfiguration,
-    TokenOptions tokenOptions)
+        MailSettings mailSettings,
+        MongoDbConfiguration mongoDbConfiguration,
+        TokenOptions tokenOptions)
     {
         services.AddAutoMapper(Assembly.GetExecutingAssembly());
 
@@ -66,9 +66,9 @@ public static class ApplicationServiceRegistration
     }
 
     public static IServiceCollection AddSubClassesOfType(this IServiceCollection services,
-    Assembly assembly,
-    Type type,
-    Func<IServiceCollection, Type, IServiceCollection>? addWithLifeCycle = null)
+        Assembly assembly,
+        Type type,
+        Func<IServiceCollection, Type, IServiceCollection>? addWithLifeCycle = null)
     {
         var types = assembly.GetTypes().Where(t => t.IsSubclassOf(type) && type != t).ToList();
 

@@ -24,7 +24,7 @@ public class AuthController : BaseController
         const string configurationSection = "WebAPIConfiguration";
 
         _configuration = configuration.GetSection(configurationSection).Get<WebApiConfiguration>()
-        ?? throw new NullReferenceException($"\"{configurationSection}\" section cannot found in configuration.");
+            ?? throw new NullReferenceException($"\"{configurationSection}\" section cannot found in configuration.");
     }
 
     [HttpPost("Login")]
@@ -141,8 +141,7 @@ public class AuthController : BaseController
 
     private string getRefreshTokenFromCookies()
     {
-        return Request.Cookies["refreshToken"]
-        ?? throw new ArgumentException("Refresh token is not found in request cookies.");
+        return Request.Cookies["refreshToken"] ?? throw new ArgumentException("Refresh token is not found in request cookies.");
     }
 
     private void setRefreshTokenToCookie(RefreshToken refreshToken)

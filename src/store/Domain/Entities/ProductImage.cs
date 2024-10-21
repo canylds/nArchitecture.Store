@@ -19,4 +19,10 @@ public class ProductImage : Entity<int>
         ProductId = productId;
         Url = url;
     }
+
+    public ProductImage(int id, int productId, string url) : base(id)
+    {
+        ProductId = productId;
+        Url = url;
+    }
 }

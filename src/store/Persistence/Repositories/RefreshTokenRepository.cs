@@ -6,7 +6,8 @@ using Persistence.Contexts;
 
 namespace Persistence.Repositories;
 
-public class RefreshTokenRepository : EfRepositoryBase<RefreshToken, int, StoreDbContext>, IRefreshTokenRepository
+public class RefreshTokenRepository : EfRepositoryBase<RefreshToken, int, StoreDbContext>,
+    IRefreshTokenRepository
 {
     public RefreshTokenRepository(StoreDbContext context) : base(context)
     {
@@ -16,12 +17,12 @@ public class RefreshTokenRepository : EfRepositoryBase<RefreshToken, int, StoreD
     public async Task<List<RefreshToken>> GetOldRefreshTokensAsync(int userId, int refreshTokenTTL)
     {
         List<RefreshToken> tokens = await Query()
-        .AsNoTracking()
-        .Where(rt =>
-        rt.UserId == userId
-        && rt.RevokedDate == null
-        && rt.ExpirationDate >= DateTime.UtcNow
-        && rt.CreatedDate.AddDays(refreshTokenTTL) <= DateTime.UtcNow).ToListAsync();
+            .AsNoTracking()
+            .Where(rt =>
+            rt.UserId == userId
+            && rt.RevokedDate == null
+            && rt.ExpirationDate >= DateTime.UtcNow
+            && rt.CreatedDate.AddDays(refreshTokenTTL) <= DateTime.UtcNow).ToListAsync();
 
         return tokens;
     }

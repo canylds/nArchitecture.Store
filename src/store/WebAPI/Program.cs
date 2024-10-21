@@ -22,21 +22,22 @@ public class Program
         builder.Services.AddControllers();
 
         builder.Services.AddApplicationServices(mailSettings:
-        builder.Configuration.GetSection("MailSettings").Get<MailSettings>()
-        ?? throw new InvalidOperationException("MailSettings section cannot found in configuration."),
-        mongoDbConfiguration:
-        builder.Configuration.GetSection("SeriLogConfigurations:MongoDbConfiguration").Get<MongoDbConfiguration>()
-        ?? throw new InvalidOperationException("MongoDbConfiguration section cannot found in configuration."),
-        tokenOptions:
-        builder.Configuration.GetSection("TokenOptions").Get<TokenOptions>()
-        ?? throw new InvalidOperationException("TokenOptions section cannot found in configuration."));
+            builder.Configuration.GetSection("MailSettings").Get<MailSettings>()
+            ?? throw new InvalidOperationException("MailSettings section cannot found in configuration."),
+            mongoDbConfiguration:
+            builder.Configuration.GetSection("SeriLogConfigurations:MongoDbConfiguration").Get<MongoDbConfiguration>()
+            ?? throw new InvalidOperationException("MongoDbConfiguration section cannot found in configuration."),
+            tokenOptions:
+            builder.Configuration.GetSection("TokenOptions").Get<TokenOptions>()
+            ?? throw new InvalidOperationException("TokenOptions section cannot found in configuration."));
+
         builder.Services.AddPersistenceServices(builder.Configuration);
         builder.Services.AddInfrastructureServices();
         builder.Services.AddHttpContextAccessor();
 
         const string tokenOptionsConfigurationSection = "TokenOptions";
         TokenOptions tokenOptions = builder.Configuration.GetSection(tokenOptionsConfigurationSection).Get<TokenOptions>()
-        ?? throw new InvalidOperationException($"\"{tokenOptionsConfigurationSection}\" section cannot found in configuration.");
+            ?? throw new InvalidOperationException($"\"{tokenOptionsConfigurationSection}\" section cannot found in configuration.");
 
         builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
         {
@@ -53,7 +54,7 @@ public class Program
         });
 
         builder.Services.AddDistributedMemoryCache();
-        builder.Services.AddStackExchangeRedisCache(opt => opt.Configuration = "localhost:6379");
+        //builder.Services.AddStackExchangeRedisCache(opt => opt.Configuration = "localhost:6379");
 
         builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddCors(opt => opt.AddDefaultPolicy(p =>
@@ -116,8 +117,8 @@ public class Program
 
         const string webApiConfigurationSection = "WebAPIConfiguration";
         WebApiConfiguration webApiConfiguration =
-        app.Configuration.GetSection(webApiConfigurationSection).Get<WebApiConfiguration>()
-        ?? throw new InvalidOperationException($"\"{webApiConfigurationSection}\" section cannot found in configuration.");
+            app.Configuration.GetSection(webApiConfigurationSection).Get<WebApiConfiguration>()
+            ?? throw new InvalidOperationException($"\"{webApiConfigurationSection}\" section cannot found in configuration.");
 
         app.UseCors(opt =>
         opt.WithOrigins(webApiConfiguration.AllowedOrigins).AllowAnyHeader().AllowAnyMethod().AllowCredentials());

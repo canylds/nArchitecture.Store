@@ -31,14 +31,12 @@ public class CategoryConfiguration : IEntityTypeConfiguration<Category>
     {
         get
         {
-            yield return new()
-            {
-                Id = 1,
-                CreatedDate = DateTime.UtcNow,
-                Name = "Giyim",
-                Description = "Bu kategori giysiler içerir.",
-                ImageUrl = "https://cdn.myikas.com/images/6d452771-fa42-482d-a9a5-b47e65a5bf47/f7875799-b576-4294-930a-198ec803046e/1080/t-shirt-black-a.jpg"
-            };
+            int id = 0;
+
+            yield return new Category(id: ++id,
+                name: "Giyim",
+                description: "Bu kategori giysiler içerir.",
+                imageUrl: "https://cdn.myikas.com/images/6d452771-fa42-482d-a9a5-b47e65a5bf47/f7875799-b576-4294-930a-198ec803046e/1080/t-shirt-black-a.jpg");
         }
     }
 }

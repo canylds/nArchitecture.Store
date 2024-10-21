@@ -15,7 +15,11 @@ public class TokenOptions
         SecurityKey = string.Empty;
     }
 
-    public TokenOptions(string audience, string issuer, int accessTokenExpiration, string securityKey, int refreshTokenTtl)
+    public TokenOptions(string audience,
+        string issuer,
+        int accessTokenExpiration,
+        string securityKey,
+        int refreshTokenTtl)
     {
         Audience = audience;
         Issuer = issuer;

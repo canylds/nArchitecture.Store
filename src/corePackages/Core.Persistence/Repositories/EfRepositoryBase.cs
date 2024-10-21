@@ -31,18 +31,23 @@ public class EfRepositoryBase<TEntity, TEntityId, TContext> : IAsyncRepository<T
         CancellationToken cancellationToken = default)
     {
         IQueryable<TEntity> queryable = Query();
+
         if (withDeleted)
             queryable = queryable.IgnoreQueryFilters();
+
         if (predicate != null)
             queryable = queryable.Where(predicate);
+
         return await queryable.AnyAsync(cancellationToken);
     }
 
     public async Task<TEntity> AddAsync(TEntity entity, CancellationToken cancellationToken = default)
     {
         EditEntityPropertiesToAdd(entity);
+
         await Context.AddAsync(entity, cancellationToken);
         await Context.SaveChangesAsync(cancellationToken);
+
         return entity;
     }
 
@@ -51,16 +56,20 @@ public class EfRepositoryBase<TEntity, TEntityId, TContext> : IAsyncRepository<T
     {
         foreach (TEntity entity in entities)
             EditEntityPropertiesToAdd(entity);
+
         await Context.AddRangeAsync(entities, cancellationToken);
         await Context.SaveChangesAsync(cancellationToken);
+
         return entities;
     }
 
     public async Task<TEntity> UpdateAsync(TEntity entity, CancellationToken cancellationToken = default)
     {
         EditEntityPropertiesToUpdate(entity);
+
         Context.Update(entity);
         await Context.SaveChangesAsync(cancellationToken);
+
         return entity;
     }
 
@@ -69,8 +78,10 @@ public class EfRepositoryBase<TEntity, TEntityId, TContext> : IAsyncRepository<T
     {
         foreach (TEntity entity in entities)
             EditEntityPropertiesToUpdate(entity);
+
         Context.UpdateRange(entities);
         await Context.SaveChangesAsync(cancellationToken);
+
         return entities;
     }
 
@@ -79,6 +90,7 @@ public class EfRepositoryBase<TEntity, TEntityId, TContext> : IAsyncRepository<T
     {
         await SetEntityAsDeleted(entity, permanent, isAsync: true, cancellationToken);
         await Context.SaveChangesAsync(cancellationToken);
+
         return entity;
     }
 
@@ -88,6 +100,7 @@ public class EfRepositoryBase<TEntity, TEntityId, TContext> : IAsyncRepository<T
     {
         await SetEntityAsDeleted(entities, permanent, isAsync: true, cancellationToken);
         await Context.SaveChangesAsync(cancellationToken);
+
         return entities;
     }
 
@@ -98,12 +111,16 @@ public class EfRepositoryBase<TEntity, TEntityId, TContext> : IAsyncRepository<T
         CancellationToken cancellationToken = default)
     {
         IQueryable<TEntity> queryable = Query();
+
         if (!enableTracking)
             queryable = queryable.AsNoTracking();
+
         if (include != null)
             queryable = include(queryable);
+
         if (withDeleted)
             queryable = queryable.IgnoreQueryFilters();
+
         return await queryable.FirstOrDefaultAsync(predicate, cancellationToken);
     }
 
@@ -117,16 +134,22 @@ public class EfRepositoryBase<TEntity, TEntityId, TContext> : IAsyncRepository<T
         CancellationToken cancellationToken = default)
     {
         IQueryable<TEntity> queryable = Query();
+
         if (!enableTracking)
             queryable = queryable.AsNoTracking();
+
         if (include != null)
             queryable = include(queryable);
+
         if (withDeleted)
             queryable = queryable.IgnoreQueryFilters();
+
         if (predicate != null)
             queryable = queryable.Where(predicate);
+
         if (orderBy != null)
             return await orderBy(queryable).ToPaginateAsync(index, size, from: 0, cancellationToken);
+
         return await queryable.ToPaginateAsync(index, size, from: 0, cancellationToken);
     }
 
@@ -140,14 +163,19 @@ public class EfRepositoryBase<TEntity, TEntityId, TContext> : IAsyncRepository<T
         CancellationToken cancellationToken = default)
     {
         IQueryable<TEntity> queryable = Query().ToDynamic(dynamic);
+
         if (!enableTracking)
             queryable = queryable.AsNoTracking();
+
         if (include != null)
             queryable = include(queryable);
+
         if (withDeleted)
             queryable = queryable.IgnoreQueryFilters();
+
         if (predicate != null)
             queryable = queryable.Where(predicate);
+
         return await queryable.ToPaginateAsync(index, size, from: 0, cancellationToken);
     }
 
@@ -156,18 +184,23 @@ public class EfRepositoryBase<TEntity, TEntityId, TContext> : IAsyncRepository<T
         bool withDeleted = false)
     {
         IQueryable<TEntity> queryable = Query();
+
         if (withDeleted)
             queryable = queryable.IgnoreQueryFilters();
+
         if (predicate != null)
             queryable = queryable.Where(predicate);
+
         return queryable.Any();
     }
 
     public TEntity Add(TEntity entity)
     {
         EditEntityPropertiesToAdd(entity);
+
         Context.Add(entity);
         Context.SaveChanges();
+
         return entity;
     }
 
@@ -175,16 +208,20 @@ public class EfRepositoryBase<TEntity, TEntityId, TContext> : IAsyncRepository<T
     {
         foreach (TEntity entity in entities)
             EditEntityPropertiesToAdd(entity);
+
         Context.AddRange(entities);
         Context.SaveChanges();
+
         return entities;
     }
 
     public TEntity Update(TEntity entity)
     {
         EditEntityPropertiesToAdd(entity);
+
         Context.Update(entity);
         Context.SaveChanges();
+
         return entity;
     }
 
@@ -192,8 +229,10 @@ public class EfRepositoryBase<TEntity, TEntityId, TContext> : IAsyncRepository<T
     {
         foreach (TEntity entity in entities)
             EditEntityPropertiesToAdd(entity);
+
         Context.UpdateRange(entities);
         Context.SaveChanges();
+
         return entities;
     }
 
@@ -201,6 +240,7 @@ public class EfRepositoryBase<TEntity, TEntityId, TContext> : IAsyncRepository<T
     {
         SetEntityAsDeleted(entity, permanent, isAsync: false).Wait();
         Context.SaveChanges();
+
         return entity;
     }
 
@@ -208,6 +248,7 @@ public class EfRepositoryBase<TEntity, TEntityId, TContext> : IAsyncRepository<T
     {
         SetEntityAsDeleted(entities, permanent, isAsync: false).Wait();
         Context.SaveChanges();
+
         return entities;
     }
 
@@ -217,12 +258,16 @@ public class EfRepositoryBase<TEntity, TEntityId, TContext> : IAsyncRepository<T
         bool enableTracking = true)
     {
         IQueryable<TEntity> queryable = Query();
+
         if (!enableTracking)
             queryable = queryable.AsNoTracking();
+
         if (include != null)
             queryable = include(queryable);
+
         if (withDeleted)
             queryable = queryable.IgnoreQueryFilters();
+
         return queryable.FirstOrDefault(predicate);
     }
 
@@ -235,16 +280,22 @@ public class EfRepositoryBase<TEntity, TEntityId, TContext> : IAsyncRepository<T
         bool enableTracking = true)
     {
         IQueryable<TEntity> queryable = Query();
+
         if (!enableTracking)
             queryable = queryable.AsNoTracking();
+
         if (include != null)
             queryable = include(queryable);
+
         if (withDeleted)
             queryable = queryable.IgnoreQueryFilters();
+
         if (predicate != null)
             queryable = queryable.Where(predicate);
+
         if (orderBy != null)
             return orderBy(queryable).ToPaginate(index, size);
+
         return queryable.ToPaginate(index, size);
     }
 
@@ -257,14 +308,19 @@ public class EfRepositoryBase<TEntity, TEntityId, TContext> : IAsyncRepository<T
         bool enableTracking = true)
     {
         IQueryable<TEntity> queryable = Query().ToDynamic(dynamic);
+
         if (!enableTracking)
             queryable = queryable.AsNoTracking();
+
         if (include != null)
             queryable = include(queryable);
+
         if (withDeleted)
             queryable = queryable.IgnoreQueryFilters();
+
         if (predicate != null)
             queryable = queryable.Where(predicate);
+
         return queryable.ToPaginate(index, size);
     }
 
@@ -301,6 +357,7 @@ public class EfRepositoryBase<TEntity, TEntityId, TContext> : IAsyncRepository<T
         if (!permanent)
         {
             CheckHasEntityHaveOneToOneRelation(entity);
+
             if (isAsync)
                 await setEntityAsSoftDeleted(entity, isAsync, cancellationToken);
             else
@@ -323,12 +380,9 @@ public class EfRepositoryBase<TEntity, TEntityId, TContext> : IAsyncRepository<T
     {
         Type queryProviderType = query.Provider.GetType();
 
-        MethodInfo createQueryMethod = queryProviderType.GetMethods()
-            .First(m => m is
-            {
-                Name: nameof(query.Provider.CreateQuery),
-                IsGenericMethod: true
-            })?
+        MethodInfo createQueryMethod = queryProviderType
+            .GetMethods()
+            .First(m => m is { Name: nameof(query.Provider.CreateQuery), IsGenericMethod: true })?
             .MakeGenericMethod(navigationPropertyType)
             ?? throw new InvalidOperationException("CreateQuery<TElement> method is not found in IQueryProvider.");
 
@@ -363,19 +417,23 @@ public class EfRepositoryBase<TEntity, TEntityId, TContext> : IAsyncRepository<T
     {
         if (IsSoftDeleted(entity))
             return;
+
         if (isRoot)
             EditEntityPropertiesToDelete((TEntity)entity);
         else
             EditRelationEntityPropertiesToCascadeSoftDelete(entity);
 
-        var navigations = Context.Entry(entity).Metadata.GetNavigations().Where(x =>
-        x is { IsOnDependent: false, ForeignKey.DeleteBehavior: DeleteBehavior.ClientCascade or DeleteBehavior.Cascade })
-        .ToList();
+        var navigations = Context.Entry(entity).Metadata.GetNavigations().Where(x => x is
+        {
+            IsOnDependent: false,
+            ForeignKey.DeleteBehavior: DeleteBehavior.ClientCascade or DeleteBehavior.Cascade
+        }).ToList();
 
         foreach (INavigation? navigation in navigations)
         {
             if (navigation.TargetEntityType.IsOwned())
                 continue;
+
             if (navigation.PropertyInfo == null)
                 continue;
 
@@ -390,14 +448,14 @@ public class EfRepositoryBase<TEntity, TEntityId, TContext> : IAsyncRepository<T
                     if (isAsync)
                     {
                         IQueryable<object>? relationLoaderQuery = GetRelationLoaderQuery(query,
-                        navigationPropertyType: navigation.PropertyInfo.GetType());
+                            navigationPropertyType: navigation.PropertyInfo.GetType());
 
                         if (relationLoaderQuery is not null)
                             navValue = await relationLoaderQuery.ToListAsync(cancellationToken);
                     }
                     else
                         navValue = GetRelationLoaderQuery(query, navigationPropertyType: navigation.PropertyInfo.GetType())?
-                        .ToList();
+                            .ToList();
 
                     if (navValue == null)
                         continue;
@@ -415,14 +473,14 @@ public class EfRepositoryBase<TEntity, TEntityId, TContext> : IAsyncRepository<T
                     if (isAsync)
                     {
                         IQueryable<object>? relationLoaderQuery = GetRelationLoaderQuery(query,
-                        navigationPropertyType: navigation.PropertyInfo.GetType());
+                            navigationPropertyType: navigation.PropertyInfo.GetType());
 
                         if (relationLoaderQuery is not null)
                             navValue = await relationLoaderQuery.FirstOrDefaultAsync(cancellationToken);
                     }
                     else
                         navValue = GetRelationLoaderQuery(query, navigationPropertyType: navigation.PropertyInfo.GetType())?
-                        .FirstOrDefault();
+                            .FirstOrDefault();
 
                     if (navValue == null)
                         continue;
@@ -431,6 +489,7 @@ public class EfRepositoryBase<TEntity, TEntityId, TContext> : IAsyncRepository<T
                 await setEntityAsSoftDeleted((IEntityTimestamps)navValue, isAsync, cancellationToken, isRoot: false);
             }
         }
+
         Context.Update(entity);
     }
 }

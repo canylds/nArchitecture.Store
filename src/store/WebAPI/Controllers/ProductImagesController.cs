@@ -17,7 +17,7 @@ public class ProductImagesController : BaseController
     }
 
     [HttpDelete("{id}")]
-    public async Task<IActionResult> Delete([FromRoute ]int id)
+    public async Task<IActionResult> Delete([FromRoute] int id)
     {
         DeleteProductImageCommand deleteProductImageCommand = new(id);
 

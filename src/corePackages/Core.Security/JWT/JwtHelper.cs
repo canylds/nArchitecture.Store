@@ -9,7 +9,8 @@ using Microsoft.IdentityModel.Tokens;
 
 namespace Core.Security.JWT;
 
-public class JwtHelper<TUserId, TOperationClaimId, TRefreshTokenId> : ITokenHelper<TUserId, TOperationClaimId, TRefreshTokenId>
+public class JwtHelper<TUserId, TOperationClaimId, TRefreshTokenId>
+    : ITokenHelper<TUserId, TOperationClaimId, TRefreshTokenId>
 {
     private readonly TokenOptions _tokenOptions;
 
@@ -18,7 +19,8 @@ public class JwtHelper<TUserId, TOperationClaimId, TRefreshTokenId> : ITokenHelp
         _tokenOptions = tokenOptions;
     }
 
-    public virtual AccessToken CreateToken(User<TUserId> user, IList<OperationClaim<TOperationClaimId>> operationClaims)
+    public virtual AccessToken CreateToken(User<TUserId> user,
+        IList<OperationClaim<TOperationClaimId>> operationClaims)
     {
         DateTime accessTokenExpiration = DateTime.Now.AddMinutes(_tokenOptions.AccessTokenExpiration);
 
@@ -26,10 +28,10 @@ public class JwtHelper<TUserId, TOperationClaimId, TRefreshTokenId> : ITokenHelp
         SigningCredentials signingCredentials = SigningCredentialsHelper.CreateSigningCredentials(securityKey);
 
         JwtSecurityToken jwt = CreateJwtSecurityToken(_tokenOptions,
-        user,
-        signingCredentials,
-        operationClaims,
-        accessTokenExpiration);
+            user,
+            signingCredentials,
+            operationClaims,
+            accessTokenExpiration);
 
         JwtSecurityTokenHandler jwtSecurityTokenHandler = new();
 
@@ -54,22 +56,23 @@ public class JwtHelper<TUserId, TOperationClaimId, TRefreshTokenId> : ITokenHelp
     }
 
     public virtual JwtSecurityToken CreateJwtSecurityToken(TokenOptions tokenOptions,
-    User<TUserId> user,
-    SigningCredentials signingCredentials,
-    IList<OperationClaim<TOperationClaimId>> operationClaims,
-    DateTime accessTokenExpiration)
+        User<TUserId> user,
+        SigningCredentials signingCredentials,
+        IList<OperationClaim<TOperationClaimId>> operationClaims,
+        DateTime accessTokenExpiration)
     {
         return new JwtSecurityToken(tokenOptions.Issuer,
-        tokenOptions.Audience,
-        expires: accessTokenExpiration,
-        notBefore: DateTime.Now,
-        claims: SetClaims(user, operationClaims),
-        signingCredentials: signingCredentials);
+            tokenOptions.Audience,
+            expires: accessTokenExpiration,
+            notBefore: DateTime.Now,
+            claims: SetClaims(user, operationClaims),
+            signingCredentials: signingCredentials);
     }
 
     protected virtual IEnumerable<Claim> SetClaims(User<TUserId> user, IList<OperationClaim<TOperationClaimId>> operationClaims)
     {
         List<Claim> claims = [];
+
         claims.AddNameIdentifier(user!.Id!.ToString()!);
         claims.AddEmail(user.Email);
         claims.AddRoles(operationClaims.Select(c => c.Name).ToArray());

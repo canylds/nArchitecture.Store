@@ -35,25 +35,18 @@ public class ProductConfiguration : IEntityTypeConfiguration<Product>
         {
             int id = 0;
 
-            yield return new Product
-            {
-                Id = ++id,
-                CreatedDate = DateTime.UtcNow,
-                CategoryId = null,
-                Name = "Asteroid Destroyer",
-                Description = "This device is able to destroy asteroids.",
-                UnitPrice = 50000000
-            };
+            yield return new Product(id: ++id,
+                categoryId: null,
+                name: "Asteroid Destroyer",
+                description: "This device is able to destroy asteroids.",
+                unitPrice: 50000000
+            );
 
-            yield return new Product
-            {
-                Id = ++id,
-                CreatedDate = DateTime.UtcNow,
-                CategoryId = 1,
-                Name = "Mavi Ekose Gömlek",
-                Description = string.Empty,
-                UnitPrice = 900
-            };
+            yield return new Product(id: ++id,
+                categoryId: 1,
+                name: "Mavi Ekose Gömlek",
+                description: string.Empty,
+                unitPrice: 900);
         }
     }
 }

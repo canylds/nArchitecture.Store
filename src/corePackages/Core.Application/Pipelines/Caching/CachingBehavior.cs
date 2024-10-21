@@ -21,8 +21,7 @@ public class CachingBehavior<TRequest, TResponse> : IPipelineBehavior<TRequest, 
     {
         _cache = cache;
         _logger = logger;
-        _cacheSettings = configuration.GetSection("CacheSettings").Get<CacheSettings>()
-            ?? throw new InvalidOperationException();
+        _cacheSettings = configuration.GetSection("CacheSettings").Get<CacheSettings>() ?? throw new InvalidOperationException();
     }
 
     public async Task<TResponse> Handle(TRequest request,
@@ -97,16 +96,12 @@ public class CachingBehavior<TRequest, TResponse> : IPipelineBehavior<TRequest, 
         int? cacheGroupCacheSlidingExpirationValue = null;
 
         if (cacheGroupCacheSlidingExpirationCache != null)
-            cacheGroupCacheSlidingExpirationValue =
-                Convert.ToInt32(Encoding.Default.GetString(cacheGroupCacheSlidingExpirationCache));
+            cacheGroupCacheSlidingExpirationValue = Convert.ToInt32(Encoding.Default.GetString(cacheGroupCacheSlidingExpirationCache));
 
-        if (cacheGroupCacheSlidingExpirationValue == null
-            || slidingExpiration.TotalSeconds > cacheGroupCacheSlidingExpirationValue)
-            cacheGroupCacheSlidingExpirationValue =
-                Convert.ToInt32(slidingExpiration.TotalSeconds);
+        if (cacheGroupCacheSlidingExpirationValue == null || slidingExpiration.TotalSeconds > cacheGroupCacheSlidingExpirationValue)
+            cacheGroupCacheSlidingExpirationValue = Convert.ToInt32(slidingExpiration.TotalSeconds);
 
-        byte[] serializeCachedGroupSlidingExpirationData =
-            JsonSerializer.SerializeToUtf8Bytes(cacheGroupCacheSlidingExpirationValue);
+        byte[] serializeCachedGroupSlidingExpirationData = JsonSerializer.SerializeToUtf8Bytes(cacheGroupCacheSlidingExpirationValue);
 
         DistributedCacheEntryOptions cacheOptions = new()
         {
