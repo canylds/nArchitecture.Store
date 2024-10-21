@@ -107,8 +107,9 @@ public class Program
             });
         }
 
-        if (app.Environment.IsProduction())
-            app.ConfigureCustomExceptionMiddleware();
+        //if (app.Environment.IsProduction())
+        //    app.ConfigureCustomExceptionMiddleware();
+        app.ConfigureCustomExceptionMiddleware();
 
         app.UseAuthentication();
         app.UseAuthorization();

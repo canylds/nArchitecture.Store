@@ -1,10 +1,12 @@
-﻿using Application.Features.ProductImages.Rules;
+﻿using Application.Features.ProductImages.Constants;
+using Application.Features.ProductImages.Rules;
 using Application.Services.Repositories;
 using AutoMapper;
 using Core.Application.Pipelines.Authorization;
 using Core.Application.Pipelines.Logging;
 using Domain.Entities;
 using MediatR;
+using static Application.Features.ProductImages.Constants.ProductImagesOperationClaims;
 
 namespace Application.Features.ProductImages.Commands.Delete;
 
@@ -12,7 +14,7 @@ public class DeleteProductImageCommand : IRequest<DeletedProductImageResponse>, 
 {
     public int Id { get; set; }
 
-    public string[] Roles => throw new NotImplementedException();
+    public string[] Roles => [Admin, Write, ProductImagesOperationClaims.Delete];
 
     public DeleteProductImageCommand()
     {
