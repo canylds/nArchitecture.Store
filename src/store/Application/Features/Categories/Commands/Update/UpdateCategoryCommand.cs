@@ -49,7 +49,7 @@ public class UpdateCategoryCommand : IRequest<UpdatedCategoryResponse>, ISecured
         public async Task<UpdatedCategoryResponse> Handle(UpdateCategoryCommand request, CancellationToken cancellationToken)
         {
             Category? category = await _categoryRepository.GetAsync(predicate: c => c.Id == request.Id,
-            cancellationToken: cancellationToken);
+                cancellationToken: cancellationToken);
 
             await _categoryBusinessRules.CategoryShouldExistWhenSelected(category);
             await _categoryBusinessRules.CategoryNameShouldNotExistWhenUpdating(request.Id, request.Name);
