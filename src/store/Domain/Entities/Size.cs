@@ -6,6 +6,8 @@ public class Size : Entity<int>
 {
     public string Name { get; set; }
 
+    public virtual ICollection<ProductVariant> ProductVariants { get; set; } = default!;
+
     public Size()
     {
         Name = string.Empty;
