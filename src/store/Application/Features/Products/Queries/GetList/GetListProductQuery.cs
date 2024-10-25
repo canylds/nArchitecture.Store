@@ -40,10 +40,17 @@ public class GetListProductQuery : IRequest<GetListResponse<GetListProductListIt
             _productRepository = productRepository;
         }
 
-        public async Task<GetListResponse<GetListProductListItemDto>> Handle(GetListProductQuery request, CancellationToken cancellationToken)
+        public async Task<GetListResponse<GetListProductListItemDto>> Handle(GetListProductQuery request,
+            CancellationToken cancellationToken)
         {
-            IPaginate<Product> prodocuts =
-                await _productRepository.GetListAsync(include: query => query.Include(p => p.Category).Include(p => p.ProductImages),
+            IPaginate<Product> prodocuts = await _productRepository.GetListAsync(orderBy: query => query.OrderBy(p => p.CreatedDate),
+                include: query => query
+                .Include(p => p.Category)
+                .Include(p => p.ProductImages)
+                .Include(p => p.ProductVariants)
+                .ThenInclude(pv => pv.Color)
+                .Include(p => p.ProductVariants)
+                .ThenInclude(pv => pv.Size),
                 index: request.PageRequest.PageIndex,
                 size: request.PageRequest.PageSize,
                 enableTracking: false,

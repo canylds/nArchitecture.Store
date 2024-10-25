@@ -44,7 +44,13 @@ public class GetByIdProductQuery : IRequest<GetByIdProductResponse>, ISecuredReq
         public async Task<GetByIdProductResponse> Handle(GetByIdProductQuery request, CancellationToken cancellationToken)
         {
             Product? product = await _productRepository.GetAsync(predicate: p => p.Id.Equals(request.Id),
-                include: query => query.Include(p => p.Category).Include(p => p.ProductImages),
+                include: query => query
+                .Include(p => p.Category)
+                .Include(p => p.ProductImages)
+                .Include(p => p.ProductVariants)
+                .ThenInclude(pv => pv.Color)
+                .Include(p => p.ProductVariants)
+                .ThenInclude(pv => pv.Size),
                 enableTracking: false,
                 cancellationToken: cancellationToken);
 

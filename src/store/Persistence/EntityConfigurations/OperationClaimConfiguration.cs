@@ -1,5 +1,3 @@
-using System.Reflection;
-using Application;
 using Core.Security.Constants;
 using Domain.Entities;
 using Microsoft.EntityFrameworkCore;
@@ -36,28 +34,28 @@ public class OperationClaimConfiguration : IEntityTypeConfiguration<OperationCla
 
             yield return new OperationClaim(id: ++id, name: GeneralOperationClaims.Admin);
 
-            #region Feature Operation Claims
-            IEnumerable<Type> featureOperationClaimsTypes = Assembly
-                .GetAssembly(typeof(ApplicationServiceRegistration))!
-                .GetTypes()
-                .Where(type =>
-                (type.Namespace?.Contains("Features") == true)
-                && (type.Namespace?.Contains("Constants") == true)
-                && type.IsClass
-                && type.Name.EndsWith("OperationClaims"));
+            //#region Feature Operation Claims
+            //IEnumerable<Type> featureOperationClaimsTypes = Assembly
+            //    .GetAssembly(typeof(ApplicationServiceRegistration))!
+            //    .GetTypes()
+            //    .Where(type =>
+            //    (type.Namespace?.Contains("Features") == true)
+            //    && (type.Namespace?.Contains("Constants") == true)
+            //    && type.IsClass
+            //    && type.Name.EndsWith("OperationClaims"));
 
-            foreach (Type type in featureOperationClaimsTypes)
-            {
-                FieldInfo[] typeFields = type.GetFields(BindingFlags.Public | BindingFlags.Static);
-                IEnumerable<string> typeFieldsValues = typeFields.Select(@field => @field.GetValue(null)!.ToString()!);
+            //foreach (Type type in featureOperationClaimsTypes)
+            //{
+            //    FieldInfo[] typeFields = type.GetFields(BindingFlags.Public | BindingFlags.Static);
+            //    IEnumerable<string> typeFieldsValues = typeFields.Select(@field => @field.GetValue(null)!.ToString()!);
 
-                IEnumerable<OperationClaim> featureOperationClaimsToAdd =
-                    typeFieldsValues.Select(value => new OperationClaim(id: ++id, name: value));
+            //    IEnumerable<OperationClaim> featureOperationClaimsToAdd =
+            //        typeFieldsValues.Select(value => new OperationClaim(id: ++id, name: value));
 
-                foreach (OperationClaim featureOperationClaim in featureOperationClaimsToAdd)
-                    yield return featureOperationClaim;
-            }
-            #endregion
+            //    foreach (OperationClaim featureOperationClaim in featureOperationClaimsToAdd)
+            //        yield return featureOperationClaim;
+            //}
+            //#endregion
         }
     }
 }

@@ -12,8 +12,8 @@ using Persistence.Contexts;
 namespace Persistence.Migrations
 {
     [DbContext(typeof(StoreDbContext))]
-    [Migration("20241021225254_AddColorAndSizeEntities")]
-    partial class AddColorAndSizeEntities
+    [Migration("20241025144707_Init")]
+    partial class Init
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -97,7 +97,7 @@ namespace Persistence.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)")
+                        .HasColumnType("nvarchar(450)")
                         .HasColumnName("Name");
 
                     b.Property<DateTime?>("UpdatedDate")
@@ -105,6 +105,9 @@ namespace Persistence.Migrations
                         .HasColumnName("UpdatedDate");
 
                     b.HasKey("Id");
+
+                    b.HasIndex(new[] { "Name" }, "UK_Colors_Name")
+                        .IsUnique();
 
                     b.ToTable("Colors", (string)null);
 
@@ -202,312 +205,6 @@ namespace Persistence.Migrations
                             Id = 1,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Name = "Admin"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Users.Admin"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Users.Write"
-                        },
-                        new
-                        {
-                            Id = 4,
-                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Users.Read"
-                        },
-                        new
-                        {
-                            Id = 5,
-                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Users.Create"
-                        },
-                        new
-                        {
-                            Id = 6,
-                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Users.Update"
-                        },
-                        new
-                        {
-                            Id = 7,
-                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Users.Delete"
-                        },
-                        new
-                        {
-                            Id = 8,
-                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "UserOperationClaims.Admin"
-                        },
-                        new
-                        {
-                            Id = 9,
-                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "UserOperationClaims.Write"
-                        },
-                        new
-                        {
-                            Id = 10,
-                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "UserOperationClaims.Read"
-                        },
-                        new
-                        {
-                            Id = 11,
-                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "UserOperationClaims.Create"
-                        },
-                        new
-                        {
-                            Id = 12,
-                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "UserOperationClaims.Update"
-                        },
-                        new
-                        {
-                            Id = 13,
-                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "UserOperationClaims.Delete"
-                        },
-                        new
-                        {
-                            Id = 14,
-                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Sizes.Admin"
-                        },
-                        new
-                        {
-                            Id = 15,
-                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Sizes.Write"
-                        },
-                        new
-                        {
-                            Id = 16,
-                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Sizes.Read"
-                        },
-                        new
-                        {
-                            Id = 17,
-                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Sizes.Create"
-                        },
-                        new
-                        {
-                            Id = 18,
-                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Sizes.Update"
-                        },
-                        new
-                        {
-                            Id = 19,
-                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Sizes.Delete"
-                        },
-                        new
-                        {
-                            Id = 20,
-                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Products.Admin"
-                        },
-                        new
-                        {
-                            Id = 21,
-                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Products.Write"
-                        },
-                        new
-                        {
-                            Id = 22,
-                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Products.Read"
-                        },
-                        new
-                        {
-                            Id = 23,
-                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Products.Create"
-                        },
-                        new
-                        {
-                            Id = 24,
-                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Products.Update"
-                        },
-                        new
-                        {
-                            Id = 25,
-                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Products.Delete"
-                        },
-                        new
-                        {
-                            Id = 26,
-                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "ProductImages.Admin"
-                        },
-                        new
-                        {
-                            Id = 27,
-                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "ProductImages.Write"
-                        },
-                        new
-                        {
-                            Id = 28,
-                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "ProductImages.Read"
-                        },
-                        new
-                        {
-                            Id = 29,
-                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "ProductImages.CreateBulk"
-                        },
-                        new
-                        {
-                            Id = 30,
-                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "ProductImages.Delete"
-                        },
-                        new
-                        {
-                            Id = 31,
-                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "OperationClaims.Admin"
-                        },
-                        new
-                        {
-                            Id = 32,
-                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "OperationClaims.Write"
-                        },
-                        new
-                        {
-                            Id = 33,
-                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "OperationClaims.Read"
-                        },
-                        new
-                        {
-                            Id = 34,
-                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "OperationClaims.Create"
-                        },
-                        new
-                        {
-                            Id = 35,
-                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "OperationClaims.Update"
-                        },
-                        new
-                        {
-                            Id = 36,
-                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "OperationClaims.Delete"
-                        },
-                        new
-                        {
-                            Id = 37,
-                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Colors.Admin"
-                        },
-                        new
-                        {
-                            Id = 38,
-                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Colors.Write"
-                        },
-                        new
-                        {
-                            Id = 39,
-                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Colors.Read"
-                        },
-                        new
-                        {
-                            Id = 40,
-                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Colors.Create"
-                        },
-                        new
-                        {
-                            Id = 41,
-                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Colors.Update"
-                        },
-                        new
-                        {
-                            Id = 42,
-                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Colors.Delete"
-                        },
-                        new
-                        {
-                            Id = 43,
-                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Categories.Admin"
-                        },
-                        new
-                        {
-                            Id = 44,
-                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Categories.Write"
-                        },
-                        new
-                        {
-                            Id = 45,
-                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Categories.Read"
-                        },
-                        new
-                        {
-                            Id = 46,
-                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Categories.Create"
-                        },
-                        new
-                        {
-                            Id = 47,
-                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Categories.Update"
-                        },
-                        new
-                        {
-                            Id = 48,
-                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Categories.Delete"
-                        },
-                        new
-                        {
-                            Id = 49,
-                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Auth.Admin"
-                        },
-                        new
-                        {
-                            Id = 50,
-                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Auth.Write"
-                        },
-                        new
-                        {
-                            Id = 51,
-                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Auth.Read"
-                        },
-                        new
-                        {
-                            Id = 52,
-                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Auth.RevokeToken"
                         });
                 });
 
@@ -694,6 +391,83 @@ namespace Persistence.Migrations
                         });
                 });
 
+            modelBuilder.Entity("Domain.Entities.ProductVariant", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasColumnName("Id");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("ColorId")
+                        .HasColumnType("int")
+                        .HasColumnName("ColorId");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2")
+                        .HasColumnName("CreatedDate");
+
+                    b.Property<DateTime?>("DeletedDate")
+                        .HasColumnType("datetime2")
+                        .HasColumnName("DeletedDate");
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int")
+                        .HasColumnName("ProductId");
+
+                    b.Property<int>("SizeId")
+                        .HasColumnType("int")
+                        .HasColumnName("SizeId");
+
+                    b.Property<int>("UnitsInStock")
+                        .HasColumnType("int")
+                        .HasColumnName("UnitsInStock");
+
+                    b.Property<DateTime?>("UpdatedDate")
+                        .HasColumnType("datetime2")
+                        .HasColumnName("UpdatedDate");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ColorId");
+
+                    b.HasIndex("ProductId");
+
+                    b.HasIndex("SizeId");
+
+                    b.ToTable("ProductVariants", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            ColorId = 1,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ProductId = 2,
+                            SizeId = 1,
+                            UnitsInStock = 10
+                        },
+                        new
+                        {
+                            Id = 2,
+                            ColorId = 2,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ProductId = 2,
+                            SizeId = 2,
+                            UnitsInStock = 15
+                        },
+                        new
+                        {
+                            Id = 3,
+                            ColorId = 2,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ProductId = 2,
+                            SizeId = 3,
+                            UnitsInStock = 20
+                        });
+                });
+
             modelBuilder.Entity("Domain.Entities.RefreshToken", b =>
                 {
                     b.Property<int>("Id")
@@ -775,7 +549,7 @@ namespace Persistence.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)")
+                        .HasColumnType("nvarchar(450)")
                         .HasColumnName("Name");
 
                     b.Property<DateTime?>("UpdatedDate")
@@ -783,6 +557,9 @@ namespace Persistence.Migrations
                         .HasColumnName("UpdatedDate");
 
                     b.HasKey("Id");
+
+                    b.HasIndex(new[] { "Name" }, "UK_Sizes_Name")
+                        .IsUnique();
 
                     b.ToTable("Sizes", (string)null);
 
@@ -873,8 +650,8 @@ namespace Persistence.Migrations
                             Email = "narch@example.com",
                             FirstName = "John",
                             LastName = "Doe",
-                            PasswordHash = new byte[] { 133, 218, 214, 246, 253, 112, 87, 43, 144, 197, 237, 19, 215, 189, 132, 131, 236, 252, 34, 112, 46, 203, 34, 2, 84, 143, 69, 223, 85, 180, 202, 84, 19, 96, 22, 244, 29, 94, 177, 37, 142, 85, 226, 60, 87, 170, 32, 199, 61, 60, 55, 254, 235, 155, 13, 69, 242, 164, 210, 226, 113, 124, 224, 120 },
-                            PasswordSalt = new byte[] { 233, 241, 229, 190, 155, 91, 5, 85, 76, 166, 6, 28, 117, 34, 32, 71, 140, 172, 43, 148, 93, 198, 65, 176, 188, 94, 36, 37, 8, 189, 186, 149, 53, 167, 27, 92, 211, 213, 0, 223, 129, 83, 177, 130, 147, 220, 107, 227, 233, 244, 92, 143, 231, 57, 115, 196, 26, 73, 239, 21, 178, 121, 100, 161, 38, 127, 25, 227, 99, 165, 26, 123, 227, 153, 70, 65, 93, 26, 165, 103, 128, 78, 53, 120, 144, 187, 227, 17, 65, 174, 79, 195, 46, 133, 6, 176, 250, 249, 108, 58, 174, 87, 236, 164, 238, 227, 1, 20, 196, 66, 213, 19, 212, 43, 106, 121, 144, 169, 6, 113, 210, 92, 86, 89, 2, 133, 220, 69 }
+                            PasswordHash = new byte[] { 36, 133, 86, 163, 94, 29, 214, 215, 222, 214, 39, 2, 87, 179, 52, 46, 26, 35, 77, 12, 197, 11, 70, 43, 80, 41, 83, 148, 169, 66, 11, 54, 210, 85, 90, 143, 206, 54, 148, 48, 103, 15, 144, 230, 247, 64, 134, 11, 217, 129, 235, 155, 11, 230, 96, 33, 157, 121, 10, 133, 46, 98, 12, 26 },
+                            PasswordSalt = new byte[] { 8, 137, 135, 98, 211, 90, 182, 23, 117, 141, 218, 75, 134, 38, 12, 29, 146, 53, 49, 231, 246, 98, 193, 251, 242, 180, 128, 0, 67, 100, 1, 138, 84, 73, 93, 102, 250, 177, 128, 142, 42, 77, 97, 215, 61, 247, 148, 57, 172, 245, 226, 10, 144, 222, 159, 155, 38, 88, 119, 112, 57, 45, 67, 83, 4, 197, 105, 233, 136, 150, 160, 109, 253, 205, 159, 144, 29, 134, 119, 203, 57, 86, 51, 189, 125, 164, 8, 216, 151, 59, 199, 214, 178, 251, 130, 19, 180, 215, 81, 59, 85, 107, 188, 236, 30, 73, 13, 167, 161, 111, 140, 231, 239, 68, 249, 72, 78, 109, 247, 162, 70, 76, 241, 107, 110, 235, 238, 76 }
                         });
                 });
 
@@ -968,6 +745,33 @@ namespace Persistence.Migrations
                     b.Navigation("Product");
                 });
 
+            modelBuilder.Entity("Domain.Entities.ProductVariant", b =>
+                {
+                    b.HasOne("Domain.Entities.Color", "Color")
+                        .WithMany("ProductVariants")
+                        .HasForeignKey("ColorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Domain.Entities.Product", "Product")
+                        .WithMany("ProductVariants")
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Domain.Entities.Size", "Size")
+                        .WithMany("ProductVariants")
+                        .HasForeignKey("SizeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Color");
+
+                    b.Navigation("Product");
+
+                    b.Navigation("Size");
+                });
+
             modelBuilder.Entity("Domain.Entities.RefreshToken", b =>
                 {
                     b.HasOne("Domain.Entities.User", "User")
@@ -1003,6 +807,11 @@ namespace Persistence.Migrations
                     b.Navigation("Products");
                 });
 
+            modelBuilder.Entity("Domain.Entities.Color", b =>
+                {
+                    b.Navigation("ProductVariants");
+                });
+
             modelBuilder.Entity("Domain.Entities.OperationClaim", b =>
                 {
                     b.Navigation("UserOperationClaims");
@@ -1011,6 +820,13 @@ namespace Persistence.Migrations
             modelBuilder.Entity("Domain.Entities.Product", b =>
                 {
                     b.Navigation("ProductImages");
+
+                    b.Navigation("ProductVariants");
+                });
+
+            modelBuilder.Entity("Domain.Entities.Size", b =>
+                {
+                    b.Navigation("ProductVariants");
                 });
 
             modelBuilder.Entity("Domain.Entities.User", b =>

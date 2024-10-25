@@ -16,6 +16,10 @@ public class ColorConfiguration : IEntityTypeConfiguration<Color>
         builder.Property(c => c.DeletedDate).HasColumnName("DeletedDate");
         builder.Property(c => c.Name).HasColumnName("Name");
 
+        builder.HasMany(c => c.ProductVariants).WithOne(pv => pv.Color).HasForeignKey(pv => pv.ColorId);
+
+        builder.HasIndex(indexExpression: c => c.Name, name: "UK_Colors_Name").IsUnique();
+
         builder.HasQueryFilter(c => !c.DeletedDate.HasValue);
 
         builder.HasData(_seeds);

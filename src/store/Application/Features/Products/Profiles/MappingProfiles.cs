@@ -24,15 +24,25 @@ public class MappingProfiles : Profile
         CreateMap<Product, DeletedProductResponse>().ReverseMap();
 
         CreateMap<ProductImage, GbiprProductImageDto>().ReverseMap();
+        CreateMap<ProductVariant, GbiprProductVariantDto>()
+            .ForMember(dest => dest.ColorName, opt => opt.MapFrom(src => src.Color.Name))
+            .ForMember(dest => dest.SizeName, opt => opt.MapFrom(src => src.Size.Name))
+            .ReverseMap();
         CreateMap<Product, GetByIdProductResponse>()
             .ForMember(dest => dest.CategoryName, opt => opt.MapFrom(src => src.Category.Name))
             .ForMember(dest => dest.ProductImages, opt => opt.MapFrom(src => src.ProductImages))
+            .ForMember(dest => dest.ProductVariants, opt => opt.MapFrom(src => src.ProductVariants))
             .ReverseMap();
 
         CreateMap<ProductImage, GlplidProductImageDto>().ReverseMap();
+        CreateMap<ProductVariant, GlplidProductVariantDto>()
+            .ForMember(dest => dest.ColorName, opt => opt.MapFrom(src => src.Color.Name))
+            .ForMember(dest => dest.ColorName, opt => opt.MapFrom(src => src.Color.Name))
+            .ReverseMap();
         CreateMap<Product, GetListProductListItemDto>()
             .ForMember(dest => dest.CategoryName, opt => opt.MapFrom(src => src.Category.Name))
             .ForMember(dest => dest.ProductImages, opt => opt.MapFrom(src => src.ProductImages))
+            .ForMember(dest => dest.ProductVariants, opt => opt.MapFrom(src => src.ProductVariants))
             .ReverseMap();
         CreateMap<IPaginate<Product>, GetListResponse<GetListProductListItemDto>>().ReverseMap();
     }

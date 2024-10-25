@@ -11,7 +11,7 @@ public class ProductVariantConfiguration : IEntityTypeConfiguration<ProductVaria
         builder.ToTable("ProductVariants").HasKey(pv => pv.Id);
 
         builder.Property(pv => pv.Id).HasColumnName("Id").IsRequired();
-        builder.Property(pv => pv.CreatedDate).HasColumnName("Id").IsRequired();
+        builder.Property(pv => pv.CreatedDate).HasColumnName("CreatedDate").IsRequired();
         builder.Property(pv => pv.UpdatedDate).HasColumnName("UpdatedDate");
         builder.Property(pv => pv.DeletedDate).HasColumnName("DeletedDate");
         builder.Property(pv => pv.ProductId).HasColumnName("ProductId").IsRequired();
@@ -20,10 +20,12 @@ public class ProductVariantConfiguration : IEntityTypeConfiguration<ProductVaria
         builder.Property(pv => pv.UnitsInStock).HasColumnName("UnitsInStock").IsRequired();
 
         builder.HasOne(pv => pv.Product).WithMany(p => p.ProductVariants).HasForeignKey(pv => pv.ProductId);
-        builder.HasOne(pv => pv.Color).WithMany(c => c.ProductVariants).HasForeignKey(pv => pv.ProductId);
-        builder.HasOne(pv => pv.Size).WithMany(s => s.ProductVariants).HasForeignKey(pv => pv.ProductId);
+        builder.HasOne(pv => pv.Color).WithMany(c => c.ProductVariants).HasForeignKey(pv => pv.ColorId);
+        builder.HasOne(pv => pv.Size).WithMany(s => s.ProductVariants).HasForeignKey(pv => pv.SizeId);
 
         builder.HasQueryFilter(pv => !pv.DeletedDate.HasValue);
+
+        builder.HasData(_seeds);
     }
 
     private IEnumerable<ProductVariant> _seeds
