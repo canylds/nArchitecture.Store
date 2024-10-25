@@ -2,8 +2,10 @@
 using Application.Services.AuthenticatorService;
 using Application.Services.AuthService;
 using Application.Services.CategoryService;
+using Application.Services.ColorService;
 using Application.Services.OperationClaimService;
 using Application.Services.ProductService;
+using Application.Services.SizeService;
 using Application.Services.UserOperationClaimService;
 using Application.Services.UserService;
 using Core.Application.Pipelines.Authorization;
@@ -59,6 +61,8 @@ public static class ApplicationServiceRegistration
         services.AddScoped<IUserService, UserManager>();
         services.AddScoped<IProductService, ProductManager>();
         services.AddScoped<ICategoryService, CategoryManager>();
+        services.AddScoped<IColorService, ColorManager>();
+        services.AddScoped<ISizeService, SizeManager>();
 
         services.AddSecurityServices<int, int, int>(tokenOptions);
 
