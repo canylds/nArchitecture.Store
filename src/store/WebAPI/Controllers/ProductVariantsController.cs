@@ -1,4 +1,6 @@
 ﻿using Application.Features.ProductVariants.Commands.Create;
+using Application.Features.ProductVariants.Commands.CreateBulk;
+using Application.Features.ProductVariants.Commands.Update;
 using Application.Features.ProductVariants.Queries;
 using Microsoft.AspNetCore.Mvc;
 
@@ -14,6 +16,22 @@ public class ProductVariantsController : BaseController
         CreatedProductVariantResponse result = await Mediator.Send(createProductVariantCommand);
 
         return Created(uri: string.Empty, result);
+    }
+
+    [HttpPost("BulkInsert")]
+    public async Task<IActionResult> BulkInsert([FromBody] CreateBulkProductVariantCommand createBulkProductVariantCommand)
+    {
+        CreatedBulkProductVariantResponse result = await Mediator.Send(createBulkProductVariantCommand);
+
+        return Created(uri: string.Empty, result);
+    }
+
+    [HttpPut]
+    public async Task<IActionResult> Update([FromBody] UpdateProductVariantCommand updateProductVariantCommand)
+    {
+        UpdatedProductVariantResponse result = await Mediator.Send(updateProductVariantCommand);
+
+        return Ok(result);
     }
 
 

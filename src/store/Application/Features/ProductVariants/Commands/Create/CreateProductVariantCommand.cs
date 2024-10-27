@@ -79,7 +79,9 @@ public class CreateProductVariantCommand : IRequest<CreatedProductVariantRespons
                 cancellationToken: cancellationToken);
             await _productVariantBusinessRules.SizeShouldExistWhenSelected(size);
 
-            await _productVariantBusinessRules.MyMethod(request.ProductId, request.ColorId, request.SizeId);
+            await _productVariantBusinessRules.ProductVariantShouldNotExistWhenCreating(request.ProductId,
+                request.ColorId,
+                request.SizeId);
 
             ProductVariant productVariant = _mapper.Map<ProductVariant>(request);
 

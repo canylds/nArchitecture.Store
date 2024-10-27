@@ -10,6 +10,7 @@ public static class ProductVariantsOperationClaims
     public const string Read = $"{_section}.Read";
 
     public const string Create = $"{_section}.Create";
+    public const string CreateBulk = $"{_section}.CreateBulk";
     public const string Update = $"{_section}.Update";
     public const string Delete = $"{_section}.Delete";
 }

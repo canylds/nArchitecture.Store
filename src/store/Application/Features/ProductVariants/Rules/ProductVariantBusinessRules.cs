@@ -47,7 +47,7 @@ public class ProductVariantBusinessRules : BaseBusinessRules
         return Task.CompletedTask;
     }
 
-    public async Task MyMethod(int productId, int colorId, int sizeId)
+    public async Task ProductVariantShouldNotExistWhenCreating(int productId, int colorId, int sizeId)
     {
         bool doesExist = await _productVariantRepository.AnyAsync(predicate:
             pv => pv.ProductId == productId && pv.ColorId == colorId && pv.SizeId == sizeId);

@@ -23,6 +23,14 @@ public class ProductVariantConfiguration : IEntityTypeConfiguration<ProductVaria
         builder.HasOne(pv => pv.Color).WithMany(c => c.ProductVariants).HasForeignKey(pv => pv.ColorId);
         builder.HasOne(pv => pv.Size).WithMany(s => s.ProductVariants).HasForeignKey(pv => pv.SizeId);
 
+        //builder.HasIndex(indexExpression: pv => new
+        //{
+        //    pv.ProductId,
+        //    pv.ColorId,
+        //    pv.SizeId
+        //}, name: "UK_ProductVariants_ProductId_ColorId_SizeId").IsUnique();
+
+
         builder.HasQueryFilter(pv => !pv.DeletedDate.HasValue);
 
         builder.HasData(_seeds);

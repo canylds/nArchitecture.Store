@@ -5,6 +5,7 @@ using Application.Services.CategoryService;
 using Application.Services.ColorService;
 using Application.Services.OperationClaimService;
 using Application.Services.ProductService;
+using Application.Services.ProductVariantService;
 using Application.Services.SizeService;
 using Application.Services.UserOperationClaimService;
 using Application.Services.UserService;
@@ -63,6 +64,7 @@ public static class ApplicationServiceRegistration
         services.AddScoped<ICategoryService, CategoryManager>();
         services.AddScoped<IColorService, ColorManager>();
         services.AddScoped<ISizeService, SizeManager>();
+        services.AddScoped<IProductVariantService, ProductVariantManager>();
 
         services.AddSecurityServices<int, int, int>(tokenOptions);
 

@@ -46,4 +46,20 @@ public class ProductBusinessRules : BaseBusinessRules
 
         return Task.CompletedTask;
     }
+
+    public Task ColorShouldExistWhenSelected(Color? color)
+    {
+        if (color == null)
+            throw new BusinessException(ProductsMessages.ColorDontExists);
+
+        return Task.CompletedTask;
+    }
+
+    public Task SizeShouldExistWhenSelected(Size? size)
+    {
+        if (size == null)
+            throw new BusinessException(ProductsMessages.SizeDontExists);
+
+        return Task.CompletedTask;
+    }
 }
