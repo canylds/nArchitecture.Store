@@ -1,8 +1,8 @@
 <p align="center">
-  <a href="https://github.com/kodlamaio-projects/nArchitecture/graphs/contributors"><img src="https://img.shields.io/github/contributors/canylds/nArchitecture.svg?style=for-the-badge"></a>
-  <a href="https://github.com/kodlamaio-projects/nArchitecture/network/members"><img src="https://img.shields.io/github/forks/canylds/nArchitecture.svg?style=for-the-badge"></a>
-  <a href="https://github.com/kodlamaio-projects/nArchitecture/stargazers"><img src="https://img.shields.io/github/stars/canylds/nArchitecture.svg?style=for-the-badge"></a>
-  <a href="https://github.com/kodlamaio-projects/nArchitecture/issues"><img src="https://img.shields.io/github/issues/canylds/nArchitecture.svg?style=for-the-badge"></a>
+  <a href="https://github.com/kodlamaio-projects/nArchitecture/graphs/contributors"><img src="https://img.shields.io/github/contributors/canylds/nArchitecture.Store.svg?style=for-the-badge"></a>
+  <a href="https://github.com/kodlamaio-projects/nArchitecture/network/members"><img src="https://img.shields.io/github/forks/canylds/nArchitecture.Store.svg?style=for-the-badge"></a>
+  <a href="https://github.com/kodlamaio-projects/nArchitecture/stargazers"><img src="https://img.shields.io/github/stars/canylds/nArchitecture.Store.svg?style=for-the-badge"></a>
+  <a href="https://github.com/kodlamaio-projects/nArchitecture/issues"><img src="https://img.shields.io/github/issues/canylds/nArchitecture.Store.svg?style=for-the-badge"></a>
 </p><br />
 
 ## 💻 About The Project
@@ -25,7 +25,7 @@ To get a local copy up and running follow these simple steps.
 
 1. Clone the repo
    ```sh
-   git clone --recurse-submodules https://github.com/canylds/nArchitecture.git
+   git clone --recurse-submodules https://github.com/canylds/nArchitecture.Store.git
    ```
 2. Configure `appsettings.json` in WebAPI.
 3. Run `Update-Database` command with Package Manager Console in WebAPI to create tables in sql server.
@@ -37,7 +37,7 @@ To get a local copy up and running follow these simple steps.
 
 ## 🚀 Usage
 
-1. Run example WebAPI project `dotnet run --project src\starterProject\WebAPI`
+1. Run WebAPI project `dotnet run --project src\store\WebAPI`
 
 ### Analysis
 
@@ -51,11 +51,11 @@ To get a local copy up and running follow these simple steps.
 
 ## 🚧 Roadmap
 
-See the [open issues](https://github.com/canylds/nArchitecture/issues) for a list of proposed features (and known issues).
+See the [open issues](https://github.com/canylds/nArchitecture.Store/issues) for a list of proposed features (and known issues).
 
 ## 📧 Contact
 
-**Project Link:** [https://github.com/kodlamaio-projects/nArchitecture](https://github.com/canylds/nArchitecture)
+**Project Link:** [https://github.com/kodlamaio-projects/nArchitecture.Store](https://github.com/canylds/nArchitecture.Store)
 
 <!-- ## 🙏 Acknowledgements
 - []() -->
