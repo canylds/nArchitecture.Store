@@ -1,7 +1,6 @@
 ﻿using Application.Features.ProductVariants.Rules;
 using Application.Services.Repositories;
 using Domain.Entities;
-using Microsoft.EntityFrameworkCore;
 
 namespace Application.Services.ProductVariantService;
 
