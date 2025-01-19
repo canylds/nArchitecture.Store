@@ -6,10 +6,10 @@ using Persistence.Contexts;
 
 namespace Persistence.Repositories;
 
-public class UserOperationClaimRepository : EfRepositoryBase<UserOperationClaim, int, BaseDbContext>,
+public class UserOperationClaimRepository : EfRepositoryBase<UserOperationClaim, int, StoreDbContext>,
     IUserOperationClaimRepository
 {
-    public UserOperationClaimRepository(BaseDbContext context) : base(context)
+    public UserOperationClaimRepository(StoreDbContext context) : base(context)
     {
 
     }

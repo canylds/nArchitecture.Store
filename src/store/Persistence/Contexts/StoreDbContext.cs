@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Persistence.Contexts;
 
-public class BaseDbContext : DbContext
+public class StoreDbContext : DbContext
 {
     public DbSet<EmailAuthenticator> EmailAuthenticators { get; set; }
     public DbSet<OperationClaim> OperationClaims { get; set; }
@@ -12,8 +12,10 @@ public class BaseDbContext : DbContext
     public DbSet<RefreshToken> RefreshTokens { get; set; }
     public DbSet<User> Users { get; set; }
     public DbSet<UserOperationClaim> UserOperationClaims { get; set; }
+    public DbSet<Employee> Employees { get; set; }
+    public DbSet<Customer> Customers { get; set; }
 
-    public BaseDbContext(DbContextOptions dbContextOptions) : base(dbContextOptions)
+    public StoreDbContext(DbContextOptions dbContextOptions) : base(dbContextOptions)
     {
 
     }

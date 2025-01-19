@@ -11,7 +11,7 @@ public static class PersistenceServiceRegistration
 {
     public static IServiceCollection AddPersistenceServices(this IServiceCollection services, IConfiguration configuration)
     {
-        services.AddDbContext<BaseDbContext>(options => options.UseSqlServer(configuration.GetConnectionString("BaseDb")));
+        services.AddDbContext<StoreDbContext>(options => options.UseSqlServer(configuration.GetConnectionString("StoreDb")));
 
         services.AddScoped<IEmailAuthenticatorRepository, EmailAuthenticatorRepository>();
         services.AddScoped<IOperationClaimRepository, OperationClaimRepository>();
@@ -19,6 +19,8 @@ public static class PersistenceServiceRegistration
         services.AddScoped<IRefreshTokenRepository, RefreshTokenRepository>();
         services.AddScoped<IUserRepository, UserRepository>();
         services.AddScoped<IUserOperationClaimRepository, UserOperationClaimRepository>();
+        services.AddScoped<IEmployeeRepository, EmployeeRepository>();
+        services.AddScoped<ICustomerRepository, CustomerRepository>();
 
         return services;
     }
