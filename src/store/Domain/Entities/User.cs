@@ -8,6 +8,7 @@ public class User : User<int>
     public string FirstName { get; set; }
     public string LastName { get; set; }
 
+    public virtual Employee Employee { get; set; } = default!;
     public virtual ICollection<UserOperationClaim> UserOperationClaims { get; set; } = default!;
     public virtual ICollection<RefreshToken> RefreshTokens { get; set; } = default!;
     public virtual ICollection<OtpAuthenticator> OtpAuthenticators { get; set; } = default!;
