@@ -24,12 +24,12 @@ public class Customer : Entity<int>
         Phone = string.Empty;
     }
 
-    public Customer(int userId, 
-        string address, 
-        string city, 
-        string region, 
-        string postalCode, 
-        string country, 
+    public Customer(int userId,
+        string address,
+        string city,
+        string region,
+        string postalCode,
+        string country,
         string phone)
     {
         UserId = userId;

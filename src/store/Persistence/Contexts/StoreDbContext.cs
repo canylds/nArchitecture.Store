@@ -14,6 +14,7 @@ public class StoreDbContext : DbContext
     public DbSet<UserOperationClaim> UserOperationClaims { get; set; }
     public DbSet<Employee> Employees { get; set; }
     public DbSet<Customer> Customers { get; set; }
+    public DbSet<Category> Categories { get; set; }
 
     public StoreDbContext(DbContextOptions dbContextOptions) : base(dbContextOptions)
     {
