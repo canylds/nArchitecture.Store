@@ -2,7 +2,7 @@
 
 namespace Application.Features.Customers.Commands.Create;
 
-public class CreateCustomerCommandValidator : AbstractValidator<CreatedCustomerResponse>
+public class CreateCustomerCommandValidator : AbstractValidator<CreateCustomerCommand>
 {
     public CreateCustomerCommandValidator()
     {

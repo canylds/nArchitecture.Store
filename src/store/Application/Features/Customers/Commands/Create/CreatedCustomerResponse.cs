@@ -13,7 +13,6 @@ public class CreatedCustomerResponse : IResponse
     public string Country { get; set; }
     public string Phone { get; set; }
     public string Email { get; set; }
-    public string Password { get; set; }
     public string FirstName { get; set; }
     public string LastName { get; set; }
 
@@ -26,7 +25,6 @@ public class CreatedCustomerResponse : IResponse
         Country = string.Empty;
         Phone = string.Empty;
         Email = string.Empty;
-        Password = string.Empty;
         FirstName = string.Empty;
         LastName = string.Empty;
     }
@@ -40,7 +38,6 @@ public class CreatedCustomerResponse : IResponse
         string country,
         string phone,
         string email,
-        string password,
         string firstName,
         string lastName)
     {
@@ -53,7 +50,6 @@ public class CreatedCustomerResponse : IResponse
         Country = country;
         Phone = phone;
         Email = email;
-        Password = password;
         FirstName = firstName;
         LastName = lastName;
     }
