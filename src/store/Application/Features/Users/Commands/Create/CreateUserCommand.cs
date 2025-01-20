@@ -55,8 +55,8 @@ public class CreateUserCommand : IRequest<CreatedUserResponse>, ISecuredRequest
             User user = _mapper.Map<User>(request);
 
             HashingHelper.CreatePasswordHash(request.Password,
-            passwordHash: out byte[] passwordHash,
-            passwordSalt: out byte[] passwordSalt);
+                passwordHash: out byte[] passwordHash,
+                passwordSalt: out byte[] passwordSalt);
 
             user.PasswordHash = passwordHash;
             user.PasswordSalt = passwordSalt;

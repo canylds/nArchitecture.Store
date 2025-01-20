@@ -1,4 +1,5 @@
 ﻿using Application.Features.Customers.Constants;
+using Application.Features.OperationClaims.Constants;
 using Application.Services.Repositories;
 using Core.Application.Rules;
 using Core.CrossCuttingConcerns.Exception.Types;
@@ -21,5 +22,13 @@ public class CustomerBusinessRules : BaseBusinessRules
             throw new BusinessException(CustomersMessages.CustomerDontExists);
 
         return Task.CompletedTask;
+    }
+
+    public async Task CustomerUserIdShouldNotExistWhenCreating(int userId)
+    {
+        bool doesExist = await _customerRepository.AnyAsync(predicate: c => c.UserId == userId);
+
+        if (doesExist)
+            throw new BusinessException(CustomersMessages.CustomerUserIdAlreadyExists);
     }
 }
