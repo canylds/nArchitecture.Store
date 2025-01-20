@@ -1,5 +1,6 @@
-﻿using Application.Features.Employees.Constants;
-using Application.Features.Employees.Rules;
+﻿using Application.Features.Customers.Constants;
+using Application.Features.Customers.Rules;
+using Application.Features.Employees.Commands.Create;
 using Application.Services.Repositories;
 using Application.Services.UserService;
 using AutoMapper;
@@ -8,11 +9,11 @@ using Core.Application.Pipelines.Transaction;
 using Core.Security.Hashing;
 using Domain.Entities;
 using MediatR;
-using static Application.Features.Employees.Constants.EmployeesOperationClaims;
+using static Application.Features.Customers.Constants.CustomersOperationClaims;
 
-namespace Application.Features.Employees.Commands.Create;
+namespace Application.Features.Customers.Commands.Create;
 
-public class CreateEmployeeCommand : IRequest<CreatedEmployeeResponse>,
+public class CreateCustomerCommand : IRequest<CreatedCustomerResponse>,
     ISecuredRequest,
     ITransactionalRequest
 {
@@ -20,26 +21,21 @@ public class CreateEmployeeCommand : IRequest<CreatedEmployeeResponse>,
     public string Password { get; set; }
     public string FirstName { get; set; }
     public string LastName { get; set; }
-    public string Title { get; set; }
-    public DateTime BirthDate { get; set; }
-    public DateTime HireDate { get; set; }
     public string Address { get; set; }
     public string City { get; set; }
     public string Region { get; set; }
     public string PostalCode { get; set; }
     public string Country { get; set; }
     public string Phone { get; set; }
-    public string? PhotoUrl { get; set; }
 
-    public string[] Roles => [Admin, Write, EmployeesOperationClaims.Create];
+    public string[] Roles => [Admin, Read, CustomersOperationClaims.Create];
 
-    public CreateEmployeeCommand()
+    public CreateCustomerCommand()
     {
         Email = string.Empty;
         Password = string.Empty;
         FirstName = string.Empty;
         LastName = string.Empty;
-        Title = string.Empty;
         Address = string.Empty;
         City = string.Empty;
         Region = string.Empty;
@@ -48,56 +44,48 @@ public class CreateEmployeeCommand : IRequest<CreatedEmployeeResponse>,
         Phone = string.Empty;
     }
 
-    public CreateEmployeeCommand(string email,
+    public CreateCustomerCommand(string email,
         string password,
         string firstName,
         string lastName,
-        string title,
-        DateTime birthDate,
-        DateTime hireDate,
         string address,
         string city,
         string region,
         string postalCode,
         string country,
-        string phone,
-        string? photoUrl)
+        string phone)
     {
         Email = email;
         Password = password;
         FirstName = firstName;
         LastName = lastName;
-        Title = title;
-        BirthDate = birthDate;
-        HireDate = hireDate;
         Address = address;
         City = city;
         Region = region;
         PostalCode = postalCode;
         Country = country;
         Phone = phone;
-        PhotoUrl = photoUrl;
     }
 
-    public class CreateEmployeeCommandHandler : IRequestHandler<CreateEmployeeCommand, CreatedEmployeeResponse>
+    public class CreateCustomerCommandHandler : IRequestHandler<CreateCustomerCommand, CreatedCustomerResponse>
     {
-        private readonly IEmployeeRepository _employeeRepository;
-        private IMapper _mapper;
-        private readonly EmployeeBusinessRules _employeeBusinessRules;
+        private readonly ICustomerRepository _customerRepository;
+        private readonly CustomerBusinessRules _customerBusinessRules;
+        private readonly IMapper _mapper;
         private readonly IUserService _userService;
 
-        public CreateEmployeeCommandHandler(IEmployeeRepository employeeRepository,
+        public CreateCustomerCommandHandler(ICustomerRepository customerRepository,
+            CustomerBusinessRules customerBusinessRules,
             IMapper mapper,
-            EmployeeBusinessRules employeeBusinessRules,
             IUserService userService)
         {
-            _employeeRepository = employeeRepository;
+            _customerRepository = customerRepository;
+            _customerBusinessRules = customerBusinessRules;
             _mapper = mapper;
-            _employeeBusinessRules = employeeBusinessRules;
             _userService = userService;
         }
 
-        public async Task<CreatedEmployeeResponse> Handle(CreateEmployeeCommand request, CancellationToken cancellationToken)
+        public async Task<CreatedCustomerResponse> Handle(CreateCustomerCommand request, CancellationToken cancellationToken)
         {
             User mappedUser = _mapper.Map<User>(request);
 
@@ -110,12 +98,12 @@ public class CreateEmployeeCommand : IRequest<CreatedEmployeeResponse>,
 
             User createdUser = await _userService.AddAsync(mappedUser);
 
-            Employee mappedEmployee = _mapper.Map<Employee>(request);
-            mappedEmployee.UserId = createdUser.Id;
+            Customer mappedCustomer = _mapper.Map<Customer>(request);
+            mappedCustomer.UserId = createdUser.Id;
 
-            Employee createdEmployee = await _employeeRepository.AddAsync(mappedEmployee, cancellationToken);
+            Customer createdCustomer = await _customerRepository.AddAsync(mappedCustomer, cancellationToken);
 
-            CreatedEmployeeResponse response = _mapper.Map<CreatedEmployeeResponse>(createdEmployee);
+            CreatedCustomerResponse response = _mapper.Map<CreatedCustomerResponse>(createdCustomer);
             response = _mapper.Map(createdUser, response);
 
             return response;
