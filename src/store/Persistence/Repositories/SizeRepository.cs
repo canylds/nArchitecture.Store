@@ -5,9 +5,9 @@ using Persistence.Contexts;
 
 namespace Persistence.Repositories;
 
-public class CategoryRepository : EfRepositoryBase<Category, int, StoreDbContext>, ICategoryRepository
+public class SizeRepository : EfRepositoryBase<Size, int, StoreDbContext>, ISizeRepository
 {
-    public CategoryRepository(StoreDbContext context) : base(context)
+    public SizeRepository(StoreDbContext context) : base(context)
     {
 
     }

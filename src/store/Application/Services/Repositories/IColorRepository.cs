@@ -3,7 +3,7 @@ using Domain.Entities;
 
 namespace Application.Services.Repositories;
 
-public interface ICategoryRepository : IAsyncRepository<Category, int>, IRepository<Category, int>
+public interface IColorRepository : IAsyncRepository<Color, int>, IRepository<Color, int>
 {
 
 }

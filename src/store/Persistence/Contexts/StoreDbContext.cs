@@ -15,6 +15,8 @@ public class StoreDbContext : DbContext
     public DbSet<Employee> Employees { get; set; }
     public DbSet<Customer> Customers { get; set; }
     public DbSet<Category> Categories { get; set; }
+    public DbSet<Color> Colors { get; set; }
+    public DbSet<Size> Sizes { get; set; }
 
     public StoreDbContext(DbContextOptions dbContextOptions) : base(dbContextOptions)
     {
