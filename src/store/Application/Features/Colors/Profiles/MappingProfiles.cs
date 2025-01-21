@@ -1,5 +1,6 @@
 ﻿using Application.Features.Colors.Commands.Create;
 using Application.Features.Colors.Commands.Delete;
+using Application.Features.Colors.Queries.GetList;
 using Application.Features.Sizes.Commands.Create;
 using AutoMapper;
 using Domain.Entities;
@@ -15,5 +16,7 @@ public class MappingProfiles : Profile
 
         CreateMap<DeleteColorCommand, Color>();
         CreateMap<Color, DeletedColorResponse>();
+
+        CreateMap<Color, GetListColorListItemDto>();
     }
 }

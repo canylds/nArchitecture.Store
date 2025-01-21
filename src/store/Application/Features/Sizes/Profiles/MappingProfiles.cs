@@ -1,5 +1,6 @@
 ﻿using Application.Features.Sizes.Commands.Create;
 using Application.Features.Sizes.Commands.Delete;
+using Application.Features.Sizes.Queries.GetList;
 using AutoMapper;
 using Domain.Entities;
 
@@ -14,5 +15,7 @@ public class MappingProfiles : Profile
 
         CreateMap<DeleteSizeCommand, Size>();
         CreateMap<Size, DeletedSizeResponse>();
+
+        CreateMap<Size, GetListSizeListItemDto>();
     }
 }
