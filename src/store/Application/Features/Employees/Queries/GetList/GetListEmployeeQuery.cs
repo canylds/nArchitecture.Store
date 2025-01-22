@@ -18,6 +18,12 @@ public class GetListEmployeeQuery : IRequest<IList<GetListEmployeeListItemDto>>,
         private readonly IEmployeeRepository _employeeRepository;
         private readonly IMapper _mapper;
 
+        public GetListEmployeeQueryHandler(IEmployeeRepository employeeRepository, IMapper mapper)
+        {
+            _employeeRepository = employeeRepository;
+            _mapper = mapper;
+        }
+
         public async Task<IList<GetListEmployeeListItemDto>> Handle(GetListEmployeeQuery request,
             CancellationToken cancellationToken)
         {

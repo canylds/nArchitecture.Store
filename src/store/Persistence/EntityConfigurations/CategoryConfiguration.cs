@@ -18,6 +18,8 @@ public class CategoryConfiguration : IEntityTypeConfiguration<Category>
         builder.Property(c => c.Description).HasColumnName("Description").IsRequired();
         builder.Property(c => c.ImageUrl).HasColumnName("ImageUrl");
 
+        builder.HasMany(c => c.Products).WithOne(p => p.Category).HasForeignKey(p => p.CategoryId);
+
         builder.HasIndex(indexExpression: c => c.Name, name: "UK_Categories_Name").IsUnique();
 
         builder.HasQueryFilter(c => !c.DeletedDate.HasValue);

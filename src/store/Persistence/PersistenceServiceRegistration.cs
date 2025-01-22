@@ -24,6 +24,7 @@ public static class PersistenceServiceRegistration
         services.AddScoped<ICategoryRepository, CategoryRepository>();
         services.AddScoped<IColorRepository, ColorRepository>();
         services.AddScoped<ISizeRepository, SizeRepository>();
+        services.AddScoped<IProductRepository, ProductRepository>();
 
         return services;
     }
