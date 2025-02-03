@@ -1,7 +1,5 @@
 ﻿using Application.Services.Repositories;
 using Domain.Entities;
-using Microsoft.EntityFrameworkCore.Query;
-using System.Linq.Expressions;
 
 namespace Application.Services.ProductService;
 
@@ -14,27 +12,13 @@ public class ProductManager : IProductService
         _productRepository = productRepository;
     }
 
-    public async Task<ICollection<Product>> UpdateRangeAsync(ICollection<Product> products)
+    public async Task UnassignCategoryFromProductsAsync(int categoryId)
     {
-        ICollection<Product> updatedProducts = await _productRepository.UpdateRangeAsync(products);
+        IList<Product> products = await _productRepository.GetListAsync(predicate: p => p.CategoryId == categoryId);
 
-        return updatedProducts;
-    }
+        foreach (Product product in products)
+            product.CategoryId = null;
 
-    public async Task<IList<Product>> GetListAsync(Expression<Func<Product, bool>>? predicate = null,
-        Func<IQueryable<Product>, IOrderedQueryable<Product>>? orderBy = null,
-        Func<IQueryable<Product>, IIncludableQueryable<Product, object>>? include = null,
-        bool withDeleted = false,
-        bool enableTracking = true,
-        CancellationToken cancellationToken = default)
-    {
-        IList<Product> productList = await _productRepository.GetListAsync(predicate,
-            orderBy,
-            include,
-            withDeleted,
-            enableTracking,
-            cancellationToken);
-
-        return productList;
+        await _productRepository.UpdateRangeAsync(products);
     }
 }

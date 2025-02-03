@@ -16,6 +16,8 @@ public class SizeConfiguration : IEntityTypeConfiguration<Size>
         builder.Property(s => s.DeletedDate).HasColumnName("DeletedDate");
         builder.Property(s => s.Name).HasColumnName("Name").IsRequired();
 
+        builder.HasMany(s => s.ProductVariants).WithOne(pv => pv.Size).HasForeignKey(pv => pv.SizeId);
+
         builder.HasIndex(indexExpression: s => s.Name, name: "UK_Sizes_Name").IsUnique();
 
         builder.HasQueryFilter(s => !s.DeletedDate.HasValue);

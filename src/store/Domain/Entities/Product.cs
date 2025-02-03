@@ -10,6 +10,7 @@ public class Product : Entity<Guid>
     public double UnitPrice { get; set; }
 
     public virtual Category Category { get; set; } = default!;
+    public virtual ICollection<ProductVariant> ProductVariants { get; set; } = default!;
 
     public Product()
     {
