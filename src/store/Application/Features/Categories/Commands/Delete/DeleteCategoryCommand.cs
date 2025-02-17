@@ -4,13 +4,16 @@ using Application.Services.ProductService;
 using Application.Services.Repositories;
 using AutoMapper;
 using Core.Application.Pipelines.Authorization;
+using Core.Application.Pipelines.Transaction;
 using Domain.Entities;
 using MediatR;
 using static Application.Features.Categories.Constants.CategoriesOperationClaims;
 
 namespace Application.Features.Categories.Commands.Delete;
 
-public class DeleteCategoryCommand : IRequest<DeletedCategoryResponse>, ISecuredRequest
+public class DeleteCategoryCommand : IRequest<DeletedCategoryResponse>, 
+    ISecuredRequest,
+    ITransactionalRequest
 {
     public int Id { get; set; }
 
