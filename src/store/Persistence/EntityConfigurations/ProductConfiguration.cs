@@ -21,6 +21,7 @@ public class ProductConfiguration : IEntityTypeConfiguration<Product>
 
         builder.HasOne(p => p.Category).WithMany(c => c.Products).HasForeignKey(p => p.CategoryId);
         builder.HasMany(p => p.ProductVariants).WithOne(pv => pv.Product).HasForeignKey(pv => pv.ProductId);
+        builder.HasMany(p => p.ProductImages).WithOne(pi => pi.Product).HasForeignKey(pi => pi.ProductId);
 
         builder.HasIndex(indexExpression: p => p.Name, name: "UK_Products_Name").IsUnique();
 

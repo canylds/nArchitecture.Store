@@ -18,6 +18,8 @@ public class StoreDbContext : DbContext
     public DbSet<Color> Colors { get; set; }
     public DbSet<Size> Sizes { get; set; }
     public DbSet<Product> Products { get; set; }
+    public DbSet<ProductVariant> ProductVariants { get; set; }
+    public DbSet<ProductImage> ProductImages { get; set; }
 
     public StoreDbContext(DbContextOptions dbContextOptions) : base(dbContextOptions)
     {

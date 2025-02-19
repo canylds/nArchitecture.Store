@@ -11,6 +11,7 @@ public class Product : Entity<Guid>
 
     public virtual Category Category { get; set; } = default!;
     public virtual ICollection<ProductVariant> ProductVariants { get; set; } = default!;
+    public virtual ICollection<ProductImage> ProductImages { get; set; } = default!;
 
     public Product()
     {
