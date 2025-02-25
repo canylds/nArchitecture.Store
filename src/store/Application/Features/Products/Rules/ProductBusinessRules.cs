@@ -46,4 +46,28 @@ public class ProductBusinessRules : BaseBusinessRules
         if (doesExists)
             throw new BusinessException(ProductsMessages.ProductNameAlreadyExists);
     }
+
+    public Task CategoryShouldBeExistsWhenAddingProduct(Category? category)
+    {
+        if (category == null)
+            throw new BusinessException(ProductsMessages.CategoryDontExistsWhenAddingProduct);
+
+        return Task.CompletedTask;
+    }
+
+    public Task ColorShouldBeExistsWhenAddingProduct(Color? color)
+    {
+        if (color == null)
+            throw new BusinessException(ProductsMessages.ColorDontExistsWhenAddingProduct);
+
+        return Task.CompletedTask;
+    }
+
+    public Task SizeShouldBeExistsWhenAddingProduct(Size? size)
+    {
+        if (size == null)
+            throw new BusinessException(ProductsMessages.SizeDontExistsWhenAddingProduct);
+
+        return Task.CompletedTask;
+    }
 }
