@@ -14,4 +14,12 @@ public class ProductImageBusinessRules : BaseBusinessRules
 
         return Task.CompletedTask;
     }
+
+    public Task ProductShouldBeExistsWhenAddingImages(Product? product)
+    {
+        if (product == null)
+            throw new BusinessException(ProductImagesMessages.ProductDontExistsWhenAddingImages);
+
+        return Task.CompletedTask;
+    }
 }

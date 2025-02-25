@@ -1,5 +1,6 @@
 ﻿using Application.Features.ProductImages.Constants;
 using Application.Features.ProductImages.Rules;
+using Application.Services.ImageService;
 using Application.Services.Repositories;
 using AutoMapper;
 using Core.Application.Pipelines.Authorization;
@@ -31,14 +32,17 @@ public class DeleteProductImageCommand : IRequest<DeletedProductImageResponse>, 
         private readonly ProductImageBusinessRules _productImageBusinessRules;
         private readonly IMapper _mapper;
         private readonly IProductImageRepository _productImageRepository;
+        private readonly ImageServiceBase _imageService;
 
         public DeleteProductImageCommandHandler(ProductImageBusinessRules productImageBusinessRules,
             IMapper mapper,
-            IProductImageRepository productImageRepository)
+            IProductImageRepository productImageRepository,
+            ImageServiceBase imageService)
         {
             _productImageBusinessRules = productImageBusinessRules;
             _mapper = mapper;
             _productImageRepository = productImageRepository;
+            _imageService = imageService;
         }
 
         public async Task<DeletedProductImageResponse> Handle(DeleteProductImageCommand request,
@@ -48,6 +52,8 @@ public class DeleteProductImageCommand : IRequest<DeletedProductImageResponse>, 
                 cancellationToken: cancellationToken);
 
             await _productImageBusinessRules.ProductImageShouldBeExistsWhenSelected(productImage);
+
+            await _imageService.DeleteAsync(productImage!.Url);
 
             await _productImageRepository.DeleteAsync(entity: productImage!, cancellationToken: cancellationToken);
 
